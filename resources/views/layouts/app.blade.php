@@ -69,6 +69,14 @@
                                     </li>
                                 </ul>
                             </li>
+                            @if(Auth::user()->hasRole('admin'))
+                            <li class="nav-item">
+                                <a href="{{ route('users') }}" class="{{ request()->routeIs('users') ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
@@ -97,7 +105,7 @@
                 </form>
             </aside>
             <footer class="main-footer">
-                <strong>Copyright &copy; 2020. {{ config('app.name', 'Jurnal PKL SMKN 1 Bawang') }}. All Rights Reserved.</strong>
+                <strong>Copyright &copy; 2023. {{ config('app.name', 'Jurnal PKL SMKN 1 Bawang') }}. All Rights Reserved.</strong>
                 <div class="float-right d-none d-sm-inline">
                     <small>Built with <i class="fas fa-heart text-pink"></i> <a href="https://www.instagram.com/indrakus_">Indra Kusuma</a></small>
                 </div>

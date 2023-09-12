@@ -26,3 +26,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'home'], function() {
 Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'example'], function() {
     Route::get('crud', App\Http\Livewire\Example\CRUDLivewire::class)->name('example.crud');
 });
+
+Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'users'], function() {
+    Route::get('users', App\Http\Livewire\User\User::class)->name('users');
+});
+
+

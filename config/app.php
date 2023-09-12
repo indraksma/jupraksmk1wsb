@@ -177,6 +177,7 @@ return [
 
         // 3rd Party
         App\Providers\FortifyServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
