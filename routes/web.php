@@ -27,8 +27,11 @@ Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'ex
     Route::get('crud', App\Http\Livewire\Example\CRUDLivewire::class)->name('example.crud');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'users'], function() {
-    Route::get('users', App\Http\Livewire\User\User::class)->name('users');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('users', App\Http\Livewire\Setting\User::class)->name('users');
+    Route::get('ta', App\Http\Livewire\Setting\TahunAjaran::class)->name('ta');
+    Route::get('jurusan', App\Http\Livewire\Setting\Jurusan::class)->name('jurusan');
+    Route::get('kelas', App\Http\Livewire\Setting\Kelas::class)->name('kelas');
 });
 
 

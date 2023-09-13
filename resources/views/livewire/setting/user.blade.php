@@ -44,7 +44,7 @@
                         placeholder="Identity" required="required">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-barcode"></span>
+                            <span class="fas fa-key"></span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     </div>
                 @enderror
                 <div class="input-group mb-3">
-                    <select wire:model="roles" id="roles" name="roles"
+                    <select wire:model.lazy="roles" id="roles" name="roles"
                         class="form-control @error('roles') is-invalid @enderror" required="required">
                         <option value="">-- Pilih --</option>
                         @foreach ($role as $roles)

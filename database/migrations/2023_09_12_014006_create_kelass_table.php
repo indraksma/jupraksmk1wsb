@@ -17,6 +17,7 @@ class CreateKelassTable extends Migration
             $table->id();
             $table->string('nama_kelas');
             $table->bigInteger('jurusan_id');
+            $table->bigInteger('tahun_ajaran_id');
             $table->timestamps();
         });
     }

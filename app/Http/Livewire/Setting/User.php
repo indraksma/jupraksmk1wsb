@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\User;
+namespace App\Http\Livewire\Setting;
 
 use App\Models\User as ModelUser;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +20,7 @@ class User extends Component
 
     public function render()
     {
-        return view('livewire.user.user', [
+        return view('livewire.setting.user', [
             'user' => ModelUser::latest()->paginate(10),
             'role' => Role::all()
         ])->extends('layouts.app');
@@ -29,6 +29,7 @@ class User extends Component
     private function resetInputFields()
     {
         $this->reset(['user_id', 'name', 'nip', 'identity', 'email', 'password', 'roles']);
+        $this->resetErrorBag();
     }
 
     public function openModal()
@@ -55,13 +56,25 @@ class User extends Component
             '*.string'                  => 'This column is required to be filled in with letters',
         ];
 
-        $this->validate([
-            'name'      => ['required'],
-            'nip'    => ['required', 'numeric'],
-            'email'   => ['required'],
-            'roles'   => ['required'],
-            'identity'   => ['required', 'numeric'],
-        ], $messages);
+        if($this->user_id != NULL)
+        {
+            $this->validate([
+                'name'      => ['required'],
+                'nip'    => ['required', 'numeric'],
+                'email'   => ['required'],
+                'roles'   => ['required'],
+                'identity'   => ['required', 'numeric'],
+            ], $messages);
+        } else {
+            $this->validate([
+                'name'      => ['required'],
+                'nip'    => ['required', 'numeric'],
+                'email'   => ['required'],
+                'roles'   => ['required'],
+                'password'   => ['required'],
+                'identity'   => ['required', 'numeric'],
+            ], $messages);
+        }
 
         if ($this->password == NULL) {
             $user = ModelUser::updateOrCreate(['id' => $this->user_id], [
@@ -81,7 +94,7 @@ class User extends Component
         }
         $user->syncRoles([$this->roles]);
 
-        $this->alert('success', $this->user_id ? 'Edited, mate!' : 'Cool, submited!');
+        $this->alert('success', $this->user_id ? 'Data berhasil diubah!' : 'Data berhasil ditambahkan!');
         $this->closeModal();
         $this->resetInputFields();
     }
@@ -90,12 +103,13 @@ class User extends Component
     {
         $user = ModelUser::findOrFail($id);
 
+
         $this->user_id = $id;
         $this->name = $user->name;
         $this->nip = $user->nip;
         $this->identity = $user->identity;
         $this->email = $user->email;
-        $this->roles = $user->roles;
+        $this->roles = $user->roles()->first()->id;
         $this->openModal();
     }
 
@@ -105,6 +119,6 @@ class User extends Component
 
         $sql->find($id)->delete();
 
-        $this->alert('warning', 'Alright, deleted!');
+        $this->alert('warning', 'Data berhasil dihapus!');
     }
 }
