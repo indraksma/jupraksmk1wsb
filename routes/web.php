@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +19,20 @@ Route::get('/', function () {
 });
 
 // Home
-Route::group(['middleware' => ['auth'], 'prefix' => 'home'], function() {
+Route::group(['middleware' => ['auth'], 'prefix' => 'home'], function () {
     Route::get('/', App\Http\Livewire\Home\HomeLivewire::class)->name('home');
 });
 
 // Example
-Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'example'], function() {
+Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'example'], function () {
     Route::get('crud', App\Http\Livewire\Example\CRUDLivewire::class)->name('example.crud');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('users', App\Http\Livewire\Setting\User::class)->name('users');
+    Route::post('import-user', [UserController::class, 'import'])->name('import-user');
     Route::get('ta', App\Http\Livewire\Setting\TahunAjaran::class)->name('ta');
     Route::get('jurusan', App\Http\Livewire\Setting\Jurusan::class)->name('jurusan');
     Route::get('kelas', App\Http\Livewire\Setting\Kelas::class)->name('kelas');
+    Route::get('jenis-kegiatan', App\Http\Livewire\Setting\JenisKegiatan::class)->name('jenis-kegiatan');
 });
-
-

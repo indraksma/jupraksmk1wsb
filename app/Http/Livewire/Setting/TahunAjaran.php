@@ -44,9 +44,16 @@ class TahunAjaran extends Component
             'tahun_ajaran'      => ['required']
         ], $messages);
 
-        Tahun_ajaran::updateOrCreate(['id' => $this->ta_id], [
-            'tahun_ajaran'      => $this->tahun_ajaran
-        ]);
+        if ($this->ta_id) {
+            Tahun_ajaran::updateOrCreate(['id' => $this->ta_id], [
+                'tahun_ajaran'      => $this->tahun_ajaran
+            ]);
+        } else {
+            Tahun_ajaran::updateOrCreate(['id' => $this->ta_id], [
+                'tahun_ajaran'      => $this->tahun_ajaran,
+                'aktif'      => 0,
+            ]);
+        }
 
         $this->alert('success', $this->ta_id ? 'Data berhasil diubah!' : 'Data berhasil ditambahkan!');
         $this->resetInputFields();
