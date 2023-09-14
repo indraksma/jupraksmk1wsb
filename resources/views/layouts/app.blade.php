@@ -22,6 +22,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="icon" type="image" href="{{ asset('favicon.png') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
     <!-- Livewire -->
     <livewire:styles />
 </head>
@@ -80,6 +81,13 @@
                             </ul>
                         </li>
                         @if (Auth::user()->hasRole('admin'))
+                            <li class="nav-item">
+                                <a href="{{ route('siswa') }}"
+                                    class="{{ request()->routeIs('siswa') ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>Siswa</p>
+                                </a>
+                            </li>
                             <li
                                 class="{{ request()->routeIs(['users', 'ta', 'jurusan', 'kelas', 'jenis-kegiatan']) ? 'nav-item has-treeview menu-open' : 'nav-item' }}">
                                 <a href="#"
@@ -170,7 +178,6 @@
 
     <!-- AdminLTE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/js/adminlte.min.js"></script>
-
     <!-- Livewire -->
     <livewire:scripts />
 

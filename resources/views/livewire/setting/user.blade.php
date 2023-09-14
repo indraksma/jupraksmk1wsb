@@ -123,9 +123,26 @@
                     <h3 class="card-title">Data User</h3>
                 </div>
                 <div class="col-6 text-right">
-                    <button type="button" class="btn btn-success btn-sm" wire:click="create()">Tambah</button>&nbsp;
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                        data-target="#modal-import">Import</button>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-success"
+                                wire:click="create()">Tambah</button>&nbsp;
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-0">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input class="form-control" type="file" wire:model="template_excel"
+                                            id="upload{{ $iteration }}">
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-info"
+                                            wire:click="import">Import</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,34 +183,6 @@
                     {{ $user->links() }}
                 </div>
             </div>
-        </div>
-
-    </div>
-
-    <!-- Modal Import User -->
-    <div class="modal fade show" id="modal-import" style="display: none;" aria-modal="true" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Import User</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('import-user') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group mb-4">
-                            <div class="custom-file text-left">
-                                <input type="file" name="file" class="form-control">
-                            </div>
-                        </div>
-                        <button class="btn btn-primary">Import Users</button>
-                        <a class="btn btn-success" href="{{ asset('format_import.xlsx') }}">Download Format</a>
-                    </form>
-                </div>
-            </div>
-
         </div>
 
     </div>

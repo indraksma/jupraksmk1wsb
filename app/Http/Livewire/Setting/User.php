@@ -6,32 +6,40 @@ use App\Models\User as ModelUser;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Spatie\Permission\Models\Role;
+
+use Illuminate\Support\Facades\Storage;
 
 use App\Imports\ImportUser;
 use Maatwebsite\Excel\Facades\Excel;
 
 class User extends Component
 {
-    use WithPagination, LivewireAlert;
+    use WithPagination, LivewireAlert, WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
 
     public $isOpen = 0;
-    public $user_id, $name, $nip, $identity, $email, $password, $roles, $excel;
+    public $user_id, $name, $nip, $identity, $email, $password, $roles;
+    public $template_excel;
+    public $iteration = 0;
 
     public function render()
     {
         return view('livewire.setting.user', [
             'user' => ModelUser::latest()->paginate(10),
-            'role' => Role::all()
+            'role' => Role::all(),
+            'iteration' => $this->iteration
         ])->extends('layouts.app');
     }
 
     private function resetInputFields()
     {
-        $this->reset(['user_id', 'name', 'nip', 'identity', 'email', 'password', 'roles', 'excel']);
+        $this->reset(['user_id', 'name', 'nip', 'identity', 'email', 'password', 'roles']);
+        $this->template_excel = NULL;
+        $this->iteration++;
         $this->resetErrorBag();
     }
 
@@ -59,8 +67,7 @@ class User extends Component
             '*.string'                  => 'This column is required to be filled in with letters',
         ];
 
-        if($this->user_id != NULL)
-        {
+        if ($this->user_id != NULL) {
             $this->validate([
                 'name'      => ['required'],
                 'nip'    => ['required', 'numeric'],
@@ -116,12 +123,18 @@ class User extends Component
         $this->openModal();
     }
 
-    public function import() {
-        Excel::import(new ImportUser, $this->excel);
+    public function import()
+    {
+        // dd($this->template_excel);
+        $file_path = $this->template_excel->store('files', 'public');
+        //dd($file_path);
+        Excel::import(new ImportUser, storage_path('/app/public/' . $file_path));
+        Storage::disk('public')->delete($file_path);
         $user = ModelUser::whereDoesntHave('roles')->get();
         foreach ($user as $guru) {
             $guru->assignRole('guru');
         }
+        $this->resetInputFields();
         $this->alert('success', 'Data berhasil diimport!');
     }
 

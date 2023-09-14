@@ -29,8 +29,9 @@ Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'ex
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('siswa', App\Http\Livewire\Siswa::class)->name('siswa');
     Route::get('users', App\Http\Livewire\Setting\User::class)->name('users');
-    Route::post('import-user', [UserController::class, 'import'])->name('import-user');
+    //Route::post('import-user', [UserController::class, 'import'])->name('import-user');
     Route::get('ta', App\Http\Livewire\Setting\TahunAjaran::class)->name('ta');
     Route::get('jurusan', App\Http\Livewire\Setting\Jurusan::class)->name('jurusan');
     Route::get('kelas', App\Http\Livewire\Setting\Kelas::class)->name('kelas');

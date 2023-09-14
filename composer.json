@@ -16,8 +16,9 @@
         "laravel/fortify": "^1.6",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "livewire/livewire": "^2.3",
+        "livewire/livewire": "^2.9",
         "maatwebsite/excel": "^3.1",
+        "rappasoft/laravel-livewire-tables": "^2.15",
         "spatie/laravel-permission": "^3.17",
         "yajra/laravel-datatables-oracle": "^9.21"
     },
