@@ -9,6 +9,9 @@ use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Spatie\Permission\Models\Role;
 
+use App\Imports\ImportUser;
+use Maatwebsite\Excel\Facades\Excel;
+
 class User extends Component
 {
     use WithPagination, LivewireAlert;
@@ -16,7 +19,7 @@ class User extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $isOpen = 0;
-    public $user_id, $name, $nip, $identity, $email, $password, $roles;
+    public $user_id, $name, $nip, $identity, $email, $password, $roles, $excel;
 
     public function render()
     {
@@ -28,7 +31,7 @@ class User extends Component
 
     private function resetInputFields()
     {
-        $this->reset(['user_id', 'name', 'nip', 'identity', 'email', 'password', 'roles']);
+        $this->reset(['user_id', 'name', 'nip', 'identity', 'email', 'password', 'roles', 'excel']);
         $this->resetErrorBag();
     }
 
@@ -111,6 +114,15 @@ class User extends Component
         $this->email = $user->email;
         $this->roles = $user->roles()->first()->id;
         $this->openModal();
+    }
+
+    public function import() {
+        Excel::import(new ImportUser, $this->excel);
+        $user = ModelUser::whereDoesntHave('roles')->get();
+        foreach ($user as $guru) {
+            $guru->assignRole('guru');
+        }
+        $this->alert('success', 'Data berhasil diimport!');
     }
 
     public function delete($id)
