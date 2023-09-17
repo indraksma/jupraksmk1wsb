@@ -14,4 +14,9 @@ class Siswa extends Component
             'iteration' => $this->iteration,
         ])->extends('layouts.app');
     }
+
+    public function edit($id)
+    {
+        $this->emit('show-modal');
+    }
 }

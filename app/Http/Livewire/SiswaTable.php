@@ -17,6 +17,7 @@ class SiswaTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setAdditionalSelects(['siswas.id']);
     }
 
     public function columns(): array
@@ -33,31 +34,34 @@ class SiswaTable extends DataTableComponent
             Column::make("Kelas", "kelas.nama_kelas")
                 ->sortable()
                 ->searchable(),
-            ButtonGroupColumn::make('Actions')
-                ->attributes(function ($row) {
-                    return [
-                        'class' => 'space-x-2',
-                    ];
-                })
-                ->buttons([
-                    LinkColumn::make('Delete') // make() has no effect in this case but needs to be set anyway
-                        ->title(fn ($row) => 'Delete ' . $row->name)
-                        ->location(fn ($row) => route('siswa', $row))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'btn btn-sm btn-danger',
-                            ];
-                        }),
-                    LinkColumn::make('Edit')
-                        ->title(fn ($row) => 'Edit ' . $row->name)
-                        ->location(fn ($row) => route('siswa', $row))
-                        ->attributes(function ($row) {
-                            return [
-                                'target' => '_blank',
-                                'class' => 'btn btn-sm btn-warning',
-                            ];
-                        }),
-                ]),
+            Column::make('Actions')
+                ->label(function ($row, Column $column) {
+                    return view('livewire.modal.edit-siswa', ['users' => $row]);
+                }),
+            // ->attributes(function ($row) {
+            //     return [
+            //         'class' => 'space-x-2',
+            //     ];
+            // })
+            // ->buttons([
+            //     LinkColumn::make('Edit')
+            //         ->title(fn ($row) => 'Edit ' . $row->name)
+            //         ->location(fn ($row) => route('siswa', $row))
+            //         ->attributes(function ($row) {
+            //             return [
+            //                 'wire:click' => 'edit(' . $row->id . ')',
+            //                 'class' => 'btn btn-sm btn-warning',
+            //             ];
+            //         }),
+            //     LinkColumn::make('Delete')
+            //         ->title(fn ($row) => 'Delete ' . $row->name)
+            //         ->location(fn ($row) => route('siswa', $row))
+            //         ->attributes(function ($row) {
+            //             return [
+            //                 'class' => 'btn btn-sm btn-danger',
+            //             ];
+            //         }),
+            // ]),
         ];
     }
 }
