@@ -20,6 +20,7 @@ class CreateDudisTable extends Migration
             $table->string('kec');
             $table->string('kab_kota');
             $table->string('prov');
+            $table->bigInteger('jurusan_id');
             $table->timestamps();
         });
     }

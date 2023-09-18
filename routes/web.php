@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'ex
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('dudi', App\Http\Livewire\Dudi::class)->name('dudi');
     Route::get('siswa', App\Http\Livewire\Siswa::class)->name('siswa');
     Route::get('users', App\Http\Livewire\Setting\User::class)->name('users');
     //Route::post('import-user', [UserController::class, 'import'])->name('import-user');

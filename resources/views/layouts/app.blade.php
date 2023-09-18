@@ -80,6 +80,13 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dudi') }}"
+                                class="{{ request()->routeIs('dudi') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fas fa-warehouse"></i>
+                                <p>DUDI</p>
+                            </a>
+                        </li>
                         @if (Auth::user()->hasRole('admin'))
                             <li class="nav-item">
                                 <a href="{{ route('siswa') }}"

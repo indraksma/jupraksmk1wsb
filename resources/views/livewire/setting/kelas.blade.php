@@ -66,13 +66,12 @@
                         </div>
                     @enderror
                     <div class="input-group mb-3">
-                        <select wire:model="jurusan_id" id="jurusan_id" type="jurusan_id" name="jurusan_id"
+                        <select wire:model="jurusan_id" id="jurusan_id" type="text" name="jurusan_id"
                             value="{{ old('jurusan_id') }}"
-                            class="form-control @error('jurusan_id') is-invalid @enderror"
-                            required="required">
+                            class="form-control @error('jurusan_id') is-invalid @enderror" required="required">
                             <option value="">-- Pilih Jurusan --</option>
-                            @foreach($jurusan as $jrs)
-                                <option value="{{$jrs->id}}">{{$jrs->nama_jurusan}}</option>
+                            @foreach ($jurusan as $jrs)
+                                <option value="{{ $jrs->id }}">{{ $jrs->nama_jurusan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -82,13 +81,12 @@
                         </div>
                     @enderror
                     <div class="input-group mb-3">
-                        <select wire:model="tahun_ajaran_id" id="tahun_ajaran_id" type="tahun_ajaran_id" name="tahun_ajaran_id"
+                        <select wire:model="tahun_ajaran_id" id="tahun_ajaran_id" type="text" name="tahun_ajaran_id"
                             value="{{ old('tahun_ajaran_id') }}"
-                            class="form-control @error('tahun_ajaran_id') is-invalid @enderror"
-                            required="required">
+                            class="form-control @error('tahun_ajaran_id') is-invalid @enderror" required="required">
                             <option value="">-- Pilih Tahun Ajaran --</option>
-                            @foreach($tahun_ajaran as $ta)
-                                <option value="{{$ta->id}}">{{$ta->tahun_ajaran}}</option>
+                            @foreach ($tahun_ajaran as $ta)
+                                <option value="{{ $ta->id }}">{{ $ta->tahun_ajaran }}</option>
                             @endforeach
                         </select>
                     </div>
