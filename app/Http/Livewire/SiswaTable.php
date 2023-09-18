@@ -12,6 +12,8 @@ use App\Models\Siswa;
 
 class SiswaTable extends DataTableComponent
 {
+
+    protected $listeners = ['refreshSiswaTable' => '$refresh'];
     protected $model = Siswa::class;
 
     public function configure(): void
@@ -36,7 +38,7 @@ class SiswaTable extends DataTableComponent
                 ->searchable(),
             Column::make('Actions')
                 ->label(function ($row, Column $column) {
-                    return view('livewire.modal.edit-siswa', ['users' => $row]);
+                    return view('livewire.action.siswa-action', ['users' => $row]);
                 }),
             // ->attributes(function ($row) {
             //     return [
