@@ -9,5 +9,7 @@ Made With :
 - Laravel Fortify
 - Spatie
 - AdminLTE 3
+- Rappasoft Livewire Datatable
+- Maatwebsite Excel Import
 
 Development Start Date : 12-9-2023
