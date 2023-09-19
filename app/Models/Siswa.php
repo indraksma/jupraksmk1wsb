@@ -15,4 +15,9 @@ class Siswa extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
+
+    public function siswapkl()
+    {
+        return $this->hasOne(Siswa_pkl::class);
+    }
 }

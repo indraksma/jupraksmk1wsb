@@ -25,6 +25,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
     <!-- Livewire -->
     <livewire:styles />
+
+
+    <!-- Turbolinks -->
+    <script src="{{ mix('js/app.js') }}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -79,6 +83,13 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('siswa-pkl') }}"
+                                class="{{ request()->routeIs(['siswa-pkl', 'siswa-pkl.tambah']) ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>Siswa PKL</p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('dudi') }}"
@@ -191,8 +202,8 @@
     <!-- Alert -->
     @livewireAlertScripts
 
-    <!-- Turbolinks -->
-    <script src="{{ mix('js/app.js') }}"></script>
+    @stack('scripts')
+
 </body>
 
 </html>

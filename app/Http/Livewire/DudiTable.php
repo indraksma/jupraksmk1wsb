@@ -4,7 +4,9 @@ namespace App\Http\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use App\Models\Dudi;
+use App\Models\Jurusan;
 
 class DudiTable extends DataTableComponent
 {
