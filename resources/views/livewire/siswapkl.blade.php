@@ -18,6 +18,7 @@
                 </div>
             </div>
             <hr>
+            <livewire:siswa-pkl-table />
         </div>
     </div>
 </div>

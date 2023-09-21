@@ -72,7 +72,7 @@ class Addsiswapkl extends Component
     public function updatedKelas($id)
     {
         $this->kelas = $id;
-        $idSiswa = Siswa_pkl::join('siswas', 'siswa_pkls.siswa_id', '=', 'siswas.id')->select('siswa_pkls.siswa_id as sid')->where('siswas.kelas_id', $id)->get();
+        $idSiswa = Siswa_pkl::join('siswas', 'siswa_pkls.siswa_id', '=', 'siswas.id')->select('siswa_pkls.siswa_id as sid')->where('siswas.kelas_id', $id)->orderBy('nama', 'ASC')->get();
         //dd($idSiswa);
         $this->data_siswa = Siswa::whereNotIn('id', $idSiswa)->where('kelas_id', $id)->orderBy('nama', 'ASC')->with('siswapkl')->get();
         $this->showSiswa = true;
@@ -89,9 +89,9 @@ class Addsiswapkl extends Component
             'akhir_pkl'      => $this->akhirpkl,
             'siswa_id'      => $id,
         ]);
-
-        $this->data_siswa = Siswa::where('id', '!=', $id)->where('kelas_id', $id)->orderBy('nama', 'ASC')->with('siswapkl')->get();
-
+        $idSiswa = Siswa_pkl::join('siswas', 'siswa_pkls.siswa_id', '=', 'siswas.id')->select('siswa_pkls.siswa_id as sid')->where('siswas.kelas_id', $this->kelas)->orderBy('nama', 'ASC')->get();
+        $this->data_siswa = Siswa::whereNotIn('id', $idSiswa)->where('kelas_id', $this->kelas)->orderBy('nama', 'ASC')->with('siswapkl')->get();
+        // dd($this->data_siswa);
         $this->alert('success', 'Siswa berhasil ditambahkan!');
     }
 }
