@@ -28,7 +28,7 @@
 
 
     <!-- Turbolinks -->
-    <script src="{{ mix('js/app.js') }}"></script>
+    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 </head>
 
 <body class="hold-transition sidebar-mini">

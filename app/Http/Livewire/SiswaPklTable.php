@@ -4,19 +4,16 @@ namespace App\Http\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Dudi;
-use App\Models\Jurusan;
-use App\Models\Kelas;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class SiswaPklTable extends DataTableComponent
 {
-    protected $listeners = ['refreshSiswaTable' => '$refresh'];
+    protected $listeners = ['refreshSiswaPklTable' => '$refresh'];
     protected $model = Siswa_pkl::class;
 
     public function configure(): void
@@ -34,11 +31,21 @@ class SiswaPklTable extends DataTableComponent
             Column::make("Kelas", "siswa.kelas.nama_kelas")
                 ->searchable()
                 ->sortable(),
-            Column::make("NIS", "siswa.nis")
+            Column::make("DUDI", "dudi.nama_dudi")
                 ->searchable()
                 ->sortable(),
-            Column::make("DUDI", "dudi.nama_dudi")
-                ->searchable(),
+            Column::make("Tgl Mulai PKL", "awal_pkl")
+                ->searchable()
+                ->sortable()
+                ->format(function ($value) {
+                    return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                }),
+            Column::make("Tgl Selesai PKL", "akhir_pkl")
+                ->searchable()
+                ->sortable()
+                ->format(function ($value) {
+                    return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                }),
             Column::make('Actions')
                 ->label(function ($row, Column $column) {
                     return view('livewire.action.edit-delete', ['data' => $row]);
@@ -51,7 +58,8 @@ class SiswaPklTable extends DataTableComponent
         $ta_id = Tahun_ajaran::where('aktif', 1)->pluck('id');
         if (Auth::user()->hasRole(['admin', 'waka'])) {
             return Siswa_pkl::query()
-                ->where('siswa_pkls.tahun_ajaran_id', $ta_id);
+                ->where('siswa_pkls.tahun_ajaran_id', $ta_id)
+                ->orderBy('siswas.kelas_id')->orderBy('siswas.nis');
         } else {
             return Siswa_pkl::query()
                 ->where('siswa_pkls.user_id', Auth::user()->id)

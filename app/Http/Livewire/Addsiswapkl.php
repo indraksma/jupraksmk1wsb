@@ -74,7 +74,7 @@ class Addsiswapkl extends Component
         $this->kelas = $id;
         $idSiswa = Siswa_pkl::join('siswas', 'siswa_pkls.siswa_id', '=', 'siswas.id')->select('siswa_pkls.siswa_id as sid')->where('siswas.kelas_id', $id)->orderBy('nama', 'ASC')->get();
         //dd($idSiswa);
-        $this->data_siswa = Siswa::whereNotIn('id', $idSiswa)->where('kelas_id', $id)->orderBy('nama', 'ASC')->with('siswapkl')->get();
+        $this->data_siswa = Siswa::whereNotIn('id', $idSiswa)->where('kelas_id', $id)->orderBy('nama', 'ASC')->orderBy('nis', 'ASC')->with('siswapkl')->get();
         $this->showSiswa = true;
     }
 

@@ -6,8 +6,12 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Tahun Ajaran</label>
-                        <div class="col-md-10">
+                        <div class="col-md-4">
                             <input class="form-control" readonly value="{{ $ta->tahun_ajaran }}" />
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="{{ route('siswa-pkl') }}"><button
+                                    class="btn btn-sm btn-success">Kembali</button></a>
                         </div>
                     </div>
                 </div>
