@@ -85,6 +85,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('jurnal') }}"
+                                class="{{ request()->routeIs('jurnal') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Jurnal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('siswa-pkl') }}"
                                 class="{{ request()->routeIs(['siswa-pkl', 'siswa-pkl.tambah']) ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-chalkboard-teacher"></i>

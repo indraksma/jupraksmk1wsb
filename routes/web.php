@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'ex
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('jurnal', App\Http\Livewire\Jurnal::class)->name('jurnal');
     Route::get('dudi', App\Http\Livewire\Dudi::class)->name('dudi');
     Route::get('siswa', App\Http\Livewire\Siswa::class)->name('siswa');
     Route::get('siswa-pkl', App\Http\Livewire\Siswapkl::class)->name('siswa-pkl');

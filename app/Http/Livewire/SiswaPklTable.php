@@ -48,7 +48,7 @@ class SiswaPklTable extends DataTableComponent
                 }),
             Column::make('Actions')
                 ->label(function ($row, Column $column) {
-                    return view('livewire.action.edit-delete', ['data' => $row]);
+                    return view('livewire.action.delete-siswapkl', ['data' => $row]);
                 })->hideIf(!auth()->user()->hasRole('admin')),
         ];
     }
