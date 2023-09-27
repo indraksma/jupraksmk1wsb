@@ -58,7 +58,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Main Menu -->
-                        <li
+                        {{-- <li
                             class="{{ request()->routeIs(['home', 'example.crud']) ? 'nav-item has-treeview menu-open' : 'nav-item' }}">
                             <a href="#"
                                 class="{{ request()->routeIs(['home', 'example.crud']) ? 'nav-link active' : 'nav-link' }}">
@@ -83,10 +83,10 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href="{{ route('jurnal') }}"
-                                class="{{ request()->routeIs('jurnal') ? 'nav-link active' : 'nav-link' }}">
+                            <a href="{{ route('home') }}"
+                                class="{{ request()->routeIs('home') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>Jurnal</p>
                             </a>
@@ -103,6 +103,19 @@
                                 class="{{ request()->routeIs('dudi') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-warehouse"></i>
                                 <p>DUDI</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>Laporan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>Entri Nilai</p>
                             </a>
                         </li>
                         @if (Auth::user()->hasRole('admin'))
@@ -187,8 +200,7 @@
             </form>
         </aside>
         <footer class="main-footer">
-            <strong>Copyright &copy; 2023. {{ config('app.name', 'Jurnal PKL SMKN 1 Bawang') }}. All Rights
-                Reserved.</strong>
+            <strong>Copyright &copy; 2023. Jurnal PKL SMKN 1 Bawang.</strong>
             <div class="float-right d-none d-sm-inline">
                 <small>Built with <i class="fas fa-heart text-pink"></i> <a
                         href="https://www.instagram.com/indrakus_">Indra Kusuma</a></small>

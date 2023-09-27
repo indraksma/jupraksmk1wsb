@@ -18,10 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Home
-Route::group(['middleware' => ['auth'], 'prefix' => 'home'], function () {
-    Route::get('/', App\Http\Livewire\Home\HomeLivewire::class)->name('home');
-});
+Route::get('home', App\Http\Livewire\Jurnal::class)->name('home')->middleware('auth');
 
 // Example
 Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'example'], function () {
@@ -29,7 +26,7 @@ Route::group(['middleware' => ['auth', 'role:admin|pokja|guru'], 'prefix' => 'ex
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('jurnal', App\Http\Livewire\Jurnal::class)->name('jurnal');
+    // Route::get('jurnal', App\Http\Livewire\Jurnal::class)->name('jurnal');
     Route::get('dudi', App\Http\Livewire\Dudi::class)->name('dudi');
     Route::get('siswa', App\Http\Livewire\Siswa::class)->name('siswa');
     Route::get('siswa-pkl', App\Http\Livewire\Siswapkl::class)->name('siswa-pkl');
