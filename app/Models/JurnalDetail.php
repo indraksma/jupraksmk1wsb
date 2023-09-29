@@ -10,4 +10,13 @@ class JurnalDetail extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function jurnal()
+    {
+        return $this->belongsTo(Jurnal::class);
+    }
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class);
+    }
 }
