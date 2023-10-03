@@ -19,7 +19,7 @@ class Jurnal extends Component
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('waka')) {
             $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->orderBy('tanggal', 'DESC')->get();
         } else {
-            $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->where('user_id', $user_id)->orderBy('tanggal', 'DESC')->get();
+            $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->where('user_id', $user_id)->orderBy('tanggal', 'DESC')->paginate(10);
         }
         return view('livewire.jurnal', [
             'cek_siswa' => $cek_siswa,
