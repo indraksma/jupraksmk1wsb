@@ -17,9 +17,9 @@ class CreateDudisTable extends Migration
             $table->id();
             $table->string('nama_dudi');
             $table->string('alamat');
-            $table->string('kec');
-            $table->string('kab_kota');
-            $table->string('prov');
+            $table->string('kec')->nullable();
+            $table->string('kab_kota')->nullable();
+            $table->string('prov')->nullable();
             $table->bigInteger('jurusan_id');
             $table->timestamps();
         });

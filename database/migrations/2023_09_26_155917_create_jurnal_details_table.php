@@ -18,7 +18,7 @@ class CreateJurnalDetailsTable extends Migration
             $table->bigInteger('jurnal_id');
             $table->bigInteger('siswa_id');
             $table->integer('kehadiran');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
