@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Dudi;
+use App\Models\Jurusan;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class DudiImport implements ToModel
@@ -14,10 +15,12 @@ class DudiImport implements ToModel
      */
     public function model(array $row)
     {
+        $id = Jurusan::where('kode_jurusan', 'LIKE', $row[1])->pluck('id');
         return new Dudi([
             'nama_dudi' => $row[0],
-            'kab_kota' => $row[1],
-            'alamat' => $row[2],
+            'jurusan_id' => $id,
+            'kab_kota' => $row[2],
+            'alamat' => $row[3],
         ]);
     }
 }

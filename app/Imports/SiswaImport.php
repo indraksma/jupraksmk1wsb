@@ -15,12 +15,12 @@ class SiswaImport implements ToModel
      */
     public function model(array $row)
     {
-        $kelas_id = Kelas::where('nama_kelas', 'like', $row[3])->first();
+        $kelas_id = Kelas::where('nama_kelas', 'like', $row[3])->pluck('id');
         return new Siswa([
             'nama' => $row[0],
             'nis' => $row[1],
             'jk' => $row[2],
-            'kelas_id' => $kelas_id->id,
+            'kelas_id' => $kelas_id,
         ]);
     }
 }

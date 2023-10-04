@@ -14,10 +14,10 @@ class ImportUser implements ToModel
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
-    public function startRow(): int
-    {
-        return 2;
-    }
+    // public function startRow(): int
+    // {
+    //     return 2;
+    // }
 
     public function model(array $row)
     {
