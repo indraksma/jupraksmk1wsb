@@ -17,6 +17,7 @@ class AddJurnal extends Component
 
     public $showSiswa = false;
     public $dudi, $user, $jeniskeg, $siswa;
+    public $siswaid, $kehadiran, $keterangan = [];
 
     public function render()
     {
@@ -28,14 +29,20 @@ class AddJurnal extends Component
         } else {
             $dudi_pkl = Siswa_pkl::where('user_id', Auth::user()->id)->groupBy('dudi_id')->pluck('dudi_id');
             $dudi = Dudi::whereIn('id', $dudi_pkl)->get();
-            $user = NULL;
+            $user = User::where('id', auth()->user()->id)->first();
         }
         return view('livewire.add-jurnal', [
             'ta' => $ta,
             'data_dudi' => $dudi,
-            'user' => $user,
+            'users' => $user,
             'jk' => $jeniskeg,
         ])->extends('layouts.app');
+    }
+
+    public function updatedUser($id)
+    {
+        $dudi_pkl = Siswa_pkl::where('user_id', $id)->groupBy('dudi_id')->pluck('dudi_id');
+        $this->dudi = Dudi::whereIn('id', $dudi_pkl)->get();
     }
 
     public function updatedDudi($id)
