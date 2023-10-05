@@ -6,9 +6,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Tahun Ajaran</label>
+                            <label class="col-md-2 col-form-label">Tanggal</label>
                             <div class="col-md-4">
-                                <input class="form-control" readonly value="{{ $ta->tahun_ajaran }}" />
+                                <input class="form-control" readonly value="{{ date('d-m-Y') }}" />
                             </div>
                             <div class="col-md-6 text-right">
                                 <a href="{{ route('jurnal') }}"><button
@@ -21,15 +21,16 @@
                             <label class="col-md-2 col-form-label">Nama Guru</label>
                             <div class="col-md-10">
                                 @if (Auth::user()->hasRole(['admin', 'waka']))
-                                    <select wire:model="user" id="user_id" class="form-control">
+                                    <select wire:model="user" id="user_id"
+                                        class="form-control @error('user') is-invalid @enderror">
                                         <option value="">-- Pilih Guru --</option>
                                         @foreach ($users as $u)
                                             <option value="{{ $u->id }}">{{ $u->name }}</option>
                                         @endforeach
                                     </select>
                                 @else
-                                    <input wire:model="user" class="form-control" readonly
-                                        value="{{ $users->id }}" />
+                                    <input wire:model="user" class="form-control" type="hidden" />
+                                    <input type="text" class="form-control" readonly value="{{ $users->name }}" />
                                 @endif
                             </div>
                         </div>
@@ -38,7 +39,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Jenis Kegiatan</label>
                             <div class="col-md-10">
-                                <select wire:model="jeniskeg" id="jenis_id" class="form-control">
+                                <select wire:model="jeniskeg" id="jenis_id"
+                                    class="form-control  @error('jeniskeg') is-invalid @enderror">
                                     <option value="">-- Jenis Kegiatan --</option>
                                     @foreach ($jk as $jkeg)
                                         <option value="{{ $jkeg->id }}">{{ $jkeg->nama_kegiatan }}</option>
@@ -51,13 +53,14 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">DUDI</label>
                             <div class="col-md-10">
-                                <select wire:model="dudi" id="dudi_id" class="form-control">
+                                <select wire:model="dudi" id="dudi_id"
+                                    class="form-control  @error('dudi') is-invalid @enderror">
                                     <option value="">-- DUDI PKL --</option>
-                                    @if ($dudi)
-                                        @forelse($dudi as $d)
+                                    @if ($dudi_list)
+                                        @forelse($dudi_list as $d)
                                             <option value="{{ $d->id }}">{{ $d->nama_dudi }}</option>
                                         @empty
-                                            <option value="">Tidak Ada Data</option>
+                                            <option>Tidak Ada Data</option>
                                         @endforelse
                                     @endif
                                 </select>
@@ -68,8 +71,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Link Dokumentasi</label>
                             <div class="col-md-10">
-                                <input class="form-control" wire:model="link_dokumentasi"
-                                    placeholder="Link Google Drive" />
+                                <input class="form-control  @error('link_dokumentasi') is-invalid @enderror"
+                                    wire:model="link_dokumentasi" placeholder="Link Google Drive" />
                             </div>
                         </div>
                     </div>
@@ -87,14 +90,16 @@
                                         <th>Kehadiran</th>
                                         <th>Keterangan</th>
                                     </tr>
-                                    @forelse ($siswa as $siswas)
-                                        <input wire:model="siswaid[]" type="hidden" value="{{ $siswas->siswa->id }}" />
+                                    @forelse ($siswa as $key => $siswas)
+                                        <input wire:model="siswaid.{{ $key }}" type="hidden" />
                                         <tr>
                                             <td>{{ $siswas->siswa->nama }}</td>
                                             <td>{{ $siswas->siswa->kelas->nama_kelas }}</td>
                                             <td>{{ $siswas->siswa->nis }}</td>
                                             <td>
-                                                <select wire:model="kehadiran[]" class="form-control" required>
+                                                <select wire:model="kehadiran.{{ $key }}"
+                                                    class="form-control  @error('kehadiran.' . $key) is-invalid @enderror"
+                                                    required>
                                                     <option value="">-- Presensi --</option>
                                                     <option value="H">Hadir</option>
                                                     <option value="I">Izin</option>
@@ -102,12 +107,13 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <textarea wire:model="keterangan[]" class="form-control"></textarea>
+                                                <textarea wire:model="keterangan.{{ $key }}"
+                                                    class="form-control @error('keterangan.' . $key) is-invalid @enderror"></textarea>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center">Tidak ada data yang dapat ditampilkan
+                                            <td colspan="5" class="text-center">Tidak ada data yang dapat ditampilkan
                                             </td>
                                         </tr>
                                     @endforelse
@@ -115,7 +121,7 @@
                             </div>
                         </div>
                         <div class="col-12 text-right">
-                            <button type="button" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
 

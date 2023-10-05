@@ -134,6 +134,7 @@
                                             wire:click="import">Import</button>
                                     </div>
                                 </div>
+                                <a href="{{ asset('format_import_user.xlsx') }}">Download format import</a>
                             </div>
                         </div>
                     </div>

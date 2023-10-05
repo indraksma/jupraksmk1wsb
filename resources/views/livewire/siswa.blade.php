@@ -25,6 +25,7 @@
                                                 wire:click="import">Import</button>
                                         </div>
                                     </div>
+                                    <a href="{{ asset('format_import_siswa.xlsx') }}">Download format import</a>
                                 </div>
                             </div>
                         </div>

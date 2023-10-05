@@ -90,6 +90,7 @@
                                     <button type="button" class="btn btn-info" wire:click="import">Import</button>
                                 </div>
                             </div>
+                            <a href="{{ asset('format_import_dudi.xlsx') }}">Download format import</a>
                         </div>
                     </div>
                 </div>
