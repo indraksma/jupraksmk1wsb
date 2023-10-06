@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Jenis_kegiatan;
 use App\Models\Jurusan;
-use App\Models\Kelas;
 use App\Models\Tahun_ajaran;
 use Illuminate\Database\Seeder;
 
@@ -41,6 +40,26 @@ class ConfigSeeder extends Seeder
         Jurusan::create([
             'kode_jurusan'  => 'TE',
             'nama_jurusan'  => 'Teknik Elektronika',
+        ]);
+        Jurusan::create([
+            'kode_jurusan'  => 'AKL',
+            'nama_jurusan'  => 'Akuntansi dan Keuangan Lembaga',
+        ]);
+        Jurusan::create([
+            'kode_jurusan'  => 'PM',
+            'nama_jurusan'  => 'Pemasaran',
+        ]);
+        Jurusan::create([
+            'kode_jurusan'  => 'FS',
+            'nama_jurusan'  => 'Busana / Fashion',
+        ]);
+        Jurusan::create([
+            'kode_jurusan'  => 'AP',
+            'nama_jurusan'  => 'Agribisnis Perikanan',
+        ]);
+        Jurusan::create([
+            'kode_jurusan'  => 'MPLB',
+            'nama_jurusan'  => 'Manajemen Perkantoran dan Layanan Bisnis',
         ]);
 
         Jenis_kegiatan::create([

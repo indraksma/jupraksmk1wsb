@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Dudi;
 use App\Models\Jenis_kegiatan;
+use App\Models\Jurnal;
+use App\Models\JurnalDetail;
 use App\Models\Siswa_pkl;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -25,9 +27,6 @@ class AddJurnal extends Component
 
     protected $rules = [
         'dudi' => 'required',
-        'siswaid.*' => 'required',
-        'kehadiran.*' => 'required',
-        'keterangan.*' => 'required',
         'jeniskeg' => 'required',
         'link_dokumentasi' => 'required',
         'user' => 'required',
@@ -67,7 +66,7 @@ class AddJurnal extends Component
     public function updatedDudi()
     {
         $this->reset('siswaid');
-        $siswapkl = Siswa_pkl::where('dudi_id', $this->dudi)->get();
+        $siswapkl = Siswa_pkl::where('user_id', $this->user)->where('dudi_id', $this->dudi)->get();
         if ($siswapkl) {
             foreach ($siswapkl as $key => $s) {
                 $this->siswaid[$key] = $s->siswa->id;
@@ -110,6 +109,35 @@ class AddJurnal extends Component
 
     public function store()
     {
-        dd($this->siswaid);
+        $this->validate();
+
+        $ta = Tahun_ajaran::where('aktif', 1)->first();
+        $jurnal = Jurnal::create([
+            'user_id'      => $this->user,
+            'tahun_ajaran_id'  => $ta->id,
+            'dudi_id'      => $this->dudi,
+            'jenis_kegiatan_id'      => $this->jeniskeg,
+            'link_dokumentasi'      => $this->link_dokumentasi,
+            'tanggal'      => date('Y-m-d'),
+        ]);
+        foreach ($this->siswaid as $key => $jd) {
+            if (isset($this->keterangan[$key])) {
+                JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'siswa_id' => $jd,
+                    'kehadiran' => $this->kehadiran[$key],
+                    'keterangan' => $this->keterangan[$key],
+                ]);
+            } else {
+                JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'siswa_id' => $jd,
+                    'kehadiran' => $this->kehadiran[$key],
+                    'keterangan' => '-',
+                ]);
+            }
+        }
+        $this->alert('success', 'Jurnal berhasil disimpan');
+        return redirect()->route('jurnal');
     }
 }

@@ -86,7 +86,7 @@
                         </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('home') }}"
-                                class="{{ request()->routeIs('home') ? 'nav-link active' : 'nav-link' }}">
+                                class="{{ request()->routeIs(['home', 'jurnal.tambah', 'jurnal']) ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>Jurnal</p>
                             </a>

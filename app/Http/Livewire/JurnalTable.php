@@ -13,17 +13,22 @@ class JurnalTable extends DataTableComponent
 
     public function configure(): void
     {
+        $this->setDefaultSort('tanggal', 'desc');
         $this->setPrimaryKey('id');
-        $this->setAdditionalSelects(['jurnals.id']);
+        $this->setAdditionalSelects(['jurnals.id', 'jurnals.link_dokumentasi']);
     }
 
     public function columns(): array
     {
         return [
             Column::make("Tanggal", "tanggal")
+                ->format(function ($row) {
+                    $date = date_create($row);
+                    return date_format($date, 'j F Y');
+                })
                 ->searchable()
                 ->sortable(),
-            Column::make("Nama Guru", "user.nama")
+            Column::make("Nama Guru", "user.name")
                 ->searchable()
                 ->sortable(),
             Column::make("DUDI", "dudi.nama_dudi")

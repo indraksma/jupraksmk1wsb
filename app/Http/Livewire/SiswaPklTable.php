@@ -24,33 +24,66 @@ class SiswaPklTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
-            Column::make("Nama Siswa", "siswa.nama")
-                ->searchable()
-                ->sortable(),
-            Column::make("Kelas", "siswa.kelas.nama_kelas")
-                ->searchable()
-                ->sortable(),
-            Column::make("DUDI", "dudi.nama_dudi")
-                ->searchable()
-                ->sortable(),
-            Column::make("Tgl Mulai PKL", "awal_pkl")
-                ->searchable()
-                ->sortable()
-                ->format(function ($value) {
-                    return Carbon::parse($value)->isoFormat('D MMMM Y');;
-                }),
-            Column::make("Tgl Selesai PKL", "akhir_pkl")
-                ->searchable()
-                ->sortable()
-                ->format(function ($value) {
-                    return Carbon::parse($value)->isoFormat('D MMMM Y');;
-                }),
-            Column::make('Actions')
-                ->label(function ($row, Column $column) {
-                    return view('livewire.action.delete-siswapkl', ['data' => $row]);
-                })->hideIf(!auth()->user()->hasRole('admin')),
-        ];
+        if (Auth::user()->hasRole(['admin', 'waka'])) {
+            return [
+                Column::make("Nama Siswa", "siswa.nama")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("Kelas", "siswa.kelas.nama_kelas")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("DUDI", "dudi.nama_dudi")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("Pembimbing", "user.name")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("Tgl Mulai PKL", "awal_pkl")
+                    ->searchable()
+                    ->sortable()
+                    ->format(function ($value) {
+                        return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                    }),
+                Column::make("Tgl Selesai PKL", "akhir_pkl")
+                    ->searchable()
+                    ->sortable()
+                    ->format(function ($value) {
+                        return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                    }),
+                Column::make('Actions')
+                    ->label(function ($row, Column $column) {
+                        return view('livewire.action.delete-siswapkl', ['data' => $row]);
+                    })->hideIf(!auth()->user()->hasRole('admin')),
+            ];
+        } else {
+            return [
+                Column::make("Nama Siswa", "siswa.nama")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("Kelas", "siswa.kelas.nama_kelas")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("DUDI", "dudi.nama_dudi")
+                    ->searchable()
+                    ->sortable(),
+                Column::make("Tgl Mulai PKL", "awal_pkl")
+                    ->searchable()
+                    ->sortable()
+                    ->format(function ($value) {
+                        return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                    }),
+                Column::make("Tgl Selesai PKL", "akhir_pkl")
+                    ->searchable()
+                    ->sortable()
+                    ->format(function ($value) {
+                        return Carbon::parse($value)->isoFormat('D MMMM Y');;
+                    }),
+                Column::make('Actions')
+                    ->label(function ($row, Column $column) {
+                        return view('livewire.action.delete-siswapkl', ['data' => $row]);
+                    })->hideIf(!auth()->user()->hasRole('admin')),
+            ];
+        }
     }
 
     public function builder(): Builder
