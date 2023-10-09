@@ -16,6 +16,7 @@ class CreateTahunAjaransTable extends Migration
         Schema::create('tahun_ajarans', function (Blueprint $table) {
             $table->id();
             $table->string('tahun_ajaran');
+            $table->bigInteger('kepsek_id')->nullable();
             $table->integer('aktif');
             $table->timestamps();
         });

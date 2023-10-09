@@ -8,6 +8,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Tahun Ajaran</label>
+                        <div class="col-md-4">
+                            <select class="form-control" wire:model="ta_id">
+                                @foreach ($tahun_ajaran as $ta)
+                                    <option value="{{ $ta->id }}">{{ $ta->tahun_ajaran }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
                         <label class="col-md-2 col-form-label">Jenis Laporan</label>
                         <div class="col-md-4">
                             <select class="form-control" wire:model="jenis_laporan">
@@ -94,7 +106,9 @@
                                         <td>{{ $item->siswa->kelas->nama_kelas }}</td>
                                         <td>{{ $item->siswa->nis }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info"><i class="fas fa-print"></i></button>
+                                            <button class="btn btn-sm btn-info"
+                                                wire:click="cetakLaporan({{ $item->siswa->id }})"><i
+                                                    class="fas fa-print"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach

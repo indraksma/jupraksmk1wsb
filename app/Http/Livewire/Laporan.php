@@ -4,17 +4,29 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Models\Dudi;
+use App\Models\Jurnal;
+use App\Models\Siswa;
 use App\Models\Siswa_pkl;
+use App\Models\Tahun_ajaran;
+use PDF;
 use Livewire\Component;
 
 class Laporan extends Component
 {
-    public $user_id, $guru, $dudi, $laporan_type, $jenis_laporan, $dudi_id, $bulan, $siswa;
+    public $user_id, $guru, $dudi, $laporan_type, $jenis_laporan, $dudi_id, $bulan, $siswa, $ta_id;
     public $showSiswa = false;
+
+    public function mount()
+    {
+        $this->ta_id = Tahun_ajaran::where('aktif', 1)->pluck('id');
+    }
+
     public function render()
     {
+        $tahun_ajaran = Tahun_ajaran::all();
         $user = User::all();
         return view('livewire.laporan', [
+            'tahun_ajaran' => $tahun_ajaran,
             'nama_guru' => $user,
         ])->extends('layouts.app');
     }
@@ -46,5 +58,10 @@ class Laporan extends Component
         $this->showSiswa = true;
         $siswa = Siswa_pkl::where('user_id', $this->user_id)->where('dudi_id', $this->dudi_id)->get();
         $this->siswa = $siswa;
+    }
+
+    public function cetakLaporan($siswaid)
+    {
+        return redirect()->route('cetak.laporan2', [$siswaid, $this->bulan]);
     }
 }

@@ -15,6 +15,7 @@
                     <thead>
                         <tr>
                             <th>Tahun Ajaran</th>
+                            <th>Kepala Sekolah</th>
                             <th>Status</th>
                             <th style="width: 150px">Aksi</th>
                         </tr>
@@ -23,17 +24,22 @@
                         @foreach ($ta as $item)
                             <tr>
                                 <td>{{ $item->tahun_ajaran }}</td>
+                                @if ($item->kepsek_id != null)
+                                    <td>{{ $item->user->name }}</td>
+                                @else
+                                    <td>Belum disetting</td>
+                                @endif
                                 <td>
-                                    @if($item->aktif == 0)
-                                    <span class="badge badge-secondary">Tidak Aktif</span>
+                                    @if ($item->aktif == 0)
+                                        <span class="badge badge-secondary">Tidak Aktif</span>
                                     @else
-                                    <span class="badge badge-primary">Aktif</span>
+                                        <span class="badge badge-primary">Aktif</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($item->aktif == 0)
-                                    <button wire:click="activate({{ $item->id }})" class="btn btn-sm btn-success"><i
-                                            class="fas fa-check"></i></button>&nbsp;
+                                    @if ($item->aktif == 0)
+                                        <button wire:click="activate({{ $item->id }})"
+                                            class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>&nbsp;
                                     @endif
                                     <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-info"><i
                                             class="fas fa-edit"></i></button>&nbsp;
@@ -74,6 +80,26 @@
                         </div>
                     </div>
                     @error('tahun_ajaran')
+                        <div class="alert alert-danger">
+                            <span>{{ $message }}</span>
+                        </div>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <select wire:model="user_id" value="{{ old('user_id') }}"
+                            class="form-control @error('user_id') is-invalid @enderror" placeholder="Tahun Ajaran"
+                            required="required">
+                            <option value="">-- Pilih Kepala Sekolah --</option>
+                            @foreach ($user as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @error('user_id')
                         <div class="alert alert-danger">
                             <span>{{ $message }}</span>
                         </div>

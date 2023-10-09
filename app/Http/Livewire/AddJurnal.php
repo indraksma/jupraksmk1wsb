@@ -18,7 +18,7 @@ class AddJurnal extends Component
     use LivewireAlert;
 
     public $showSiswa = false;
-    public $dudi, $user, $jeniskeg, $siswa, $dudi_list, $link_dokumentasi;
+    public $dudi, $user, $jeniskeg, $siswa, $dudi_list, $link_dokumentasi, $tanggal;
     public $siswaid = [];
     public $kehadiran = [];
     public $keterangan = [];
@@ -30,7 +30,14 @@ class AddJurnal extends Component
         'jeniskeg' => 'required',
         'link_dokumentasi' => 'required',
         'user' => 'required',
+        'tanggal' => 'required',
     ];
+
+
+    public function mount()
+    {
+        $this->tanggal = date('Y-m-d');
+    }
 
     public function render()
     {
@@ -118,7 +125,7 @@ class AddJurnal extends Component
             'dudi_id'      => $this->dudi,
             'jenis_kegiatan_id'      => $this->jeniskeg,
             'link_dokumentasi'      => $this->link_dokumentasi,
-            'tanggal'      => date('Y-m-d'),
+            'tanggal'      => $this->tanggal,
         ]);
         foreach ($this->siswaid as $key => $jd) {
             if (isset($this->keterangan[$key])) {

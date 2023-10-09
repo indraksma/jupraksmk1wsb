@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CetakController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('home', App\Http\Livewire\Jurnal::class)->name('home')->middleware('auth');
 
 // Example
-Route::middleware(['auth', 'role:admin|pokja|guru'])->group(function () {
+Route::middleware(['auth', 'role:admin|pokja|guru|waka'])->group(function () {
     Route::get('siswa-pkl', App\Http\Livewire\Siswapkl::class)->name('siswa-pkl');
     Route::get('siswa-pkl/tambah', App\Http\Livewire\Addsiswapkl::class)->name('siswa-pkl.tambah');
     Route::get('dudi', App\Http\Livewire\Dudi::class)->name('dudi');
@@ -29,6 +29,7 @@ Route::middleware(['auth', 'role:admin|pokja|guru'])->group(function () {
     Route::get('jurnal/tambah', App\Http\Livewire\AddJurnal::class)->name('jurnal.tambah');
     Route::get('jurnal/edit', App\Http\Livewire\EditJurnal::class)->name('jurnal.edit');
     Route::get('laporan', App\Http\Livewire\Laporan::class)->name('laporan');
+    Route::get('laporan/cetak/2/{siswaid}/{bulan}', [CetakController::class, 'cetak_laporan'])->name('cetak.laporan2');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
