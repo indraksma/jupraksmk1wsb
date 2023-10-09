@@ -15,6 +15,21 @@
                         </div>
                     </div>
                 </div>
+                @if (Auth::user()->hasRole(['admin', 'waka']))
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Nama Guru</label>
+                            <div class="col-md-4">
+                                <select wire:model="user_id" class="form-control">
+                                    <option value="">-- Pilih Nama Guru --</option>
+                                    @foreach ($nama_guru as $guru)
+                                        <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Awal PKL</label>

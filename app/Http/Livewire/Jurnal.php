@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Jurnal as ModelsJurnal;
+use App\Models\JurnalDetail;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,8 @@ class Jurnal extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $searchTerm;
+    protected $listeners = ['deleteId'];
+    public $deleteid;
 
     public function render()
     {
@@ -40,5 +43,20 @@ class Jurnal extends Component
             'ta' => $ta,
             'jurnal' => $jurnal,
         ])->extends('layouts.app');
+    }
+
+    public function deleteId($id)
+    {
+        $this->deleteid = $id;
+    }
+
+    public function delete()
+    {
+        // dd($this->deleteid);
+        JurnalDetail::where('jurnal_id', $this->deleteid)->delete();
+        ModelsJurnal::where('id', $this->deleteid)->delete();
+
+        $this->alert('warning', 'Data berhasil dihapus!');
+        $this->emit('refreshJurnalTable');
     }
 }

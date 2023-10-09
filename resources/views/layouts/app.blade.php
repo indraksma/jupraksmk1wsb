@@ -107,7 +107,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('laporan') }}"
+                                class="{{ request()->routeIs('laporan') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>Laporan</p>
                             </a>

@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
+use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,17 +17,29 @@ class Addsiswapkl extends Component
 {
     use LivewireAlert;
 
-    public $jurusan, $data_kelas, $kelas, $data_siswa, $dudi, $data_dudi, $awalpkl, $akhirpkl;
+    public $jurusan, $data_kelas, $kelas, $data_siswa, $dudi, $data_dudi, $awalpkl, $akhirpkl, $user_id;
     public $showSiswa = false;
     public $showJKD = false;
 
+    public function mount()
+    {
+        if (Auth::user()->hasRole('waka')) {
+            $this->user_id = Auth::user()->id;
+        }
+    }
+
     public function render()
     {
+        if (Auth::user()->hasRole(['pokja', 'guru'])) {
+            $this->user_id = Auth::user()->id;
+        }
         $ta = Tahun_ajaran::where('aktif', 1)->first();
         $alljurusan = Jurusan::all();
+        $user = User::all();
         return view('livewire.addsiswapkl', [
             'ta' => $ta,
             'alljurusan' => $alljurusan,
+            'nama_guru' => $user,
         ])->extends('layouts.app');
     }
 
@@ -82,7 +95,7 @@ class Addsiswapkl extends Component
     {
         $ta = Tahun_ajaran::where('aktif', 1)->first();
         Siswa_pkl::create([
-            'user_id'      => Auth::user()->id,
+            'user_id'      => $this->user_id,
             'tahun_ajaran_id'  => $ta->id,
             'dudi_id'      => $this->dudi,
             'awal_pkl'      => $this->awalpkl,

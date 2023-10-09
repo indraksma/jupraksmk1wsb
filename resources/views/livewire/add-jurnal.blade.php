@@ -8,11 +8,10 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Tanggal</label>
                             <div class="col-md-4">
-                                <input class="form-control" readonly value="{{ date('d-m-Y') }}" />
+                                <input class="form-control" readonly value="{{ date('j F Y') }}" />
                             </div>
                             <div class="col-md-6 text-right">
-                                <a href="{{ route('jurnal') }}"><button
-                                        class="btn btn-sm btn-success">Kembali</button></a>
+                                <a href="{{ route('jurnal') }}" class="btn btn-sm btn-success">Kembali</a>
                             </div>
                         </div>
                     </div>
