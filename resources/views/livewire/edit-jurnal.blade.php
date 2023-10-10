@@ -55,7 +55,7 @@
                             <label class="col-md-2 col-form-label">Link Dokumentasi</label>
                             <div class="col-md-10">
                                 <input class="form-control  @error('link_dokumentasi') is-invalid @enderror"
-                                    wire:model="link_dokumentasi" placeholder="Link Google Drive" />
+                                    wire:model.lazy="link_dokumentasi" placeholder="Link Google Drive" />
                             </div>
                         </div>
                     </div>
@@ -69,6 +69,7 @@
                                     <th>Nama</th>
                                     <th>Kelas</th>
                                     <th>NIS</th>
+                                    <th>Materi</th>
                                     <th>Kehadiran</th>
                                     <th>Keterangan</th>
                                 </tr>
@@ -78,6 +79,10 @@
                                         <td>{{ $siswas->siswa->nama }}</td>
                                         <td>{{ $siswas->siswa->kelas->nama_kelas }}</td>
                                         <td>{{ $siswas->siswa->nis }}</td>
+                                        <td>
+                                            <textarea wire:model.lazy="materi.{{ $key }}"
+                                                class="form-control @error('materi.' . $key) is-invalid @enderror" required></textarea>
+                                        </td>
                                         <td>
                                             <select wire:model="kehadiran.{{ $key }}"
                                                 class="form-control  @error('kehadiran.' . $key) is-invalid @enderror"
@@ -89,7 +94,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <textarea wire:model="keterangan.{{ $key }}"
+                                            <textarea wire:model.lazy="keterangan.{{ $key }}"
                                                 class="form-control @error('keterangan.' . $key) is-invalid @enderror"></textarea>
                                         </td>
                                     </tr>

@@ -70,7 +70,7 @@ class User extends Component
         if ($this->user_id != NULL) {
             $this->validate([
                 'name'      => ['required'],
-                'nip'    => ['required', 'numeric'],
+                'nip'    => ['required'],
                 'email'   => ['required'],
                 'roles'   => ['required'],
                 'identity'   => ['required', 'numeric'],

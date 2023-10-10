@@ -24,6 +24,7 @@ class EditJurnal extends Component
     public $siswaid = [];
     public $kehadiran = [];
     public $keterangan = [];
+    public $materi = [];
 
     protected $rules = [
         'dudi' => 'required',
@@ -48,6 +49,7 @@ class EditJurnal extends Component
         $this->jurnal_detail = $jurnal_detail;
         foreach ($jurnal_detail as $key => $jd) {
             $this->siswaid[$key] = $jd->siswa_id;
+            $this->materi[$key] = $jd->materi;
             $this->keterangan[$key] = $jd->keterangan;
             $this->kehadiran[$key] = $jd->kehadiran;
         }
@@ -94,11 +96,13 @@ class EditJurnal extends Component
             $jd_edit = JurnalDetail::where('id', $jd->id)->first();
             if (isset($this->keterangan[$key])) {
                 $jd_edit->update([
+                    'materi' => $this->materi[$key],
                     'kehadiran' => $this->kehadiran[$key],
                     'keterangan' => $this->keterangan[$key],
                 ]);
             } else {
                 $jd_edit->update([
+                    'materi' => $this->materi[$key],
                     'kehadiran' => $this->kehadiran[$key],
                     'keterangan' => '-',
                 ]);

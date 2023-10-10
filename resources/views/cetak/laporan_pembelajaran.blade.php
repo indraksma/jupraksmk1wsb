@@ -46,12 +46,17 @@
         <tr>
             <td width="150px">Nama Siswa</td>
             <td width="10px">:</td>
-            <td>{{ $jurnal->jurnal_detail->siswa->nama }}</td>
+            <td>{{ $siswa->nama }}</td>
         </tr>
         <tr>
             <td width="150px">Kelas</td>
             <td width="10px">:</td>
-            <td>{{ $jurnal->jurnal_detail->siswa->kelas->nama_kelas }}</td>
+            <td>{{ $siswa->kelas->nama_kelas }}</td>
+        </tr>
+        <tr>
+            <td width="150px">NIS</td>
+            <td width="10px">:</td>
+            <td>{{ $siswa->nis }}</td>
         </tr>
         <tr>
             <td width="150px">DUDI</td>
@@ -69,9 +74,10 @@
             <td width="5%">No.</td>
             <td width="10%">Hari/Tanggal</td>
             <td width="10%">Jenis Kegiatan</td>
-            <td width="25%">Link Dokumentasi</td>
+            <td width="20%">Materi</td>
             <td width="10%">Kehadiran</td>
-            <td width="40%">Keterangan</td>
+            <td width="25%">Link Dokumentasi</td>
+            <td width="20%">Keterangan</td>
         </tr>
         <?php
         $no = 1;
@@ -81,9 +87,10 @@
                 <td class="ctr">{{ $no }}</td>
                 <td>{{ \Carbon\Carbon::parse($data->tanggal)->isoFormat('dddd / D-M-Y') }}</td>
                 <td>{{ $data->jenis_kegiatan->nama_kegiatan }}</td>
+                <td>{{ $data->materi }}</td>
+                <td>{{ $data->kehadiran }}</td>
                 <td>{{ $data->link_dokumentasi }}</td>
-                <td>{{ $data->jurnal_detail->kehadiran }}</td>
-                <td>{{ $data->jurnal_detail->keterangan }}</td>
+                <td>{{ $data->keterangan }}</td>
             </tr>
             <?php
             $no++;

@@ -22,6 +22,7 @@ class AddJurnal extends Component
     public $siswaid = [];
     public $kehadiran = [];
     public $keterangan = [];
+    public $materi = [];
 
     private $cekform = true;
 
@@ -132,6 +133,7 @@ class AddJurnal extends Component
                 JurnalDetail::create([
                     'jurnal_id' => $jurnal->id,
                     'siswa_id' => $jd,
+                    'materi' => $this->materi[$key],
                     'kehadiran' => $this->kehadiran[$key],
                     'keterangan' => $this->keterangan[$key],
                 ]);
@@ -139,6 +141,7 @@ class AddJurnal extends Component
                 JurnalDetail::create([
                     'jurnal_id' => $jurnal->id,
                     'siswa_id' => $jd,
+                    'materi' => $this->materi[$key],
                     'kehadiran' => $this->kehadiran[$key],
                     'keterangan' => '-',
                 ]);

@@ -30,7 +30,36 @@
                         </div>
                     </div>
                 </div>
-                @if ($laporan_type == 2)
+                @if ($laporan_type == 1)
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Jurusan</label>
+                            <div class="col-md-4">
+                                <select class="form-control" wire:model="jurusan_id">
+                                    <option value="">-- Pilih Jurusan --</option>
+                                    @foreach ($list_jurusan as $jrs)
+                                        <option value="{{ $jrs->id }}">{{ $jrs->nama_jurusan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Kelas</label>
+                            <div class="col-md-4">
+                                <select class="form-control" wire:model="kelas_id">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    @if ($list_kelas)
+                                        @foreach ($list_kelas as $kelas)
+                                            <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                @elseif ($laporan_type == 2)
                     <div class="col-md-12">
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Nama Guru</label>
@@ -87,6 +116,16 @@
                         </div>
                     </div>
                 @endif
+                @if ($showPrintBtn)
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="col-md-6 text-center">
+                                <button class="btn btn-info" wire:click="cetakLaporan1"><i class="fas fa-print"></i>
+                                    Unduh</button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @if ($showSiswa)
                     <hr />
                     <div class="col-12">
@@ -106,9 +145,9 @@
                                         <td>{{ $item->siswa->kelas->nama_kelas }}</td>
                                         <td>{{ $item->siswa->nis }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info"
-                                                wire:click="cetakLaporan({{ $item->siswa->id }})"><i
-                                                    class="fas fa-print"></i></button>
+                                            <a target="_blank" class="btn btn-sm btn-info text-white"
+                                                wire:click="cetakLaporan2({{ $item->siswa->id }})"><i
+                                                    class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CetakController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,11 @@ use App\Http\Controllers\CetakController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    if (Auth::check()) {
+        return redirect()->route('jurnal');
+    } else {
+        return view('auth.login');
+    }
 });
 
 Route::get('home', App\Http\Livewire\Jurnal::class)->name('home')->middleware('auth');
@@ -29,7 +34,7 @@ Route::middleware(['auth', 'role:admin|pokja|guru|waka'])->group(function () {
     Route::get('jurnal/tambah', App\Http\Livewire\AddJurnal::class)->name('jurnal.tambah');
     Route::get('jurnal/edit', App\Http\Livewire\EditJurnal::class)->name('jurnal.edit');
     Route::get('laporan', App\Http\Livewire\Laporan::class)->name('laporan');
-    Route::get('laporan/cetak/2/{siswaid}/{bulan}', [CetakController::class, 'cetak_laporan'])->name('cetak.laporan2');
+    Route::get('laporan/pkl/{siswaid}/{taid}/{bulan}', [CetakController::class, 'cetak_laporan'])->name('cetak.laporan2');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
