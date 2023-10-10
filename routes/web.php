@@ -35,6 +35,7 @@ Route::middleware(['auth', 'role:admin|pokja|guru|waka'])->group(function () {
     Route::get('jurnal/edit', App\Http\Livewire\EditJurnal::class)->name('jurnal.edit');
     Route::get('laporan', App\Http\Livewire\Laporan::class)->name('laporan');
     Route::get('laporan/pkl/{siswaid}/{taid}/{bulan}', [CetakController::class, 'cetak_laporan'])->name('cetak.laporan2');
+    Route::get('laporan/siswa/{kelasid}', [CetakController::class, 'cetak_kelas'])->name('cetak.laporan1');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

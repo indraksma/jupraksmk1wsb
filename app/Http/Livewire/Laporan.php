@@ -10,11 +10,13 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
-use PDF;
 use Livewire\Component;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Laporan extends Component
 {
+    use LivewireAlert;
+
     public $user_id, $guru, $dudi, $laporan_type, $jenis_laporan, $dudi_id, $bulan, $siswa, $ta_id, $list_jurusan, $jurusan_id, $kelas_id, $list_kelas;
     public $showSiswa = false;
     public $showPrintBtn = false;
@@ -87,11 +89,16 @@ class Laporan extends Component
 
     public function cetakLaporan1()
     {
-        return redirect()->route('cetak.laporan2', [$siswaid, $this->ta_id, $this->bulan]);
+        return redirect()->route('cetak.laporan1', [$this->kelas_id]);
     }
 
-    public function cetakLaporan2($type, $siswaid)
+    public function cetakLaporan2($siswaid)
     {
-        return redirect()->route('cetak.laporan2', [$siswaid, $this->ta_id, $this->bulan]);
+        $jurnal_all = Jurnal::join('jurnal_details', 'jurnals.id', '=', 'jurnal_details.jurnal_id')->where('jurnals.tahun_ajaran_id', $this->ta_id)->where('jurnal_details.siswa_id', $siswaid)->whereMonth('tanggal', '=', $this->bulan)->get();
+        if (!$jurnal_all->isEmpty()) {
+            return redirect()->route('cetak.laporan2', [$siswaid, $this->ta_id, $this->bulan]);
+        } else {
+            $this->alert('error', 'Data tidak ditemukan!');
+        }
     }
 }
