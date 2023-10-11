@@ -17,7 +17,7 @@ class CetakController extends Controller
         $pdf = PDF::loadView('cetak.laporan_pembelajaran', ['jurnal' => $jurnal, 'jurnal_all' => $jurnal_all, 'bulan' => $bulan, 'siswa' => $siswa]);
         $pdf->setPaper('A4', 'portrait');
         $namadokumen = $siswa->nama . '-laporan-pembelajaran-pkl-' . $bulan . '.pdf';
-        return $pdf->stream($namadokumen);
+        return $pdf->download($namadokumen);
     }
 
     public function cetak_kelas($kelasid)
@@ -28,6 +28,6 @@ class CetakController extends Controller
         $pdf = PDF::loadView('cetak.laporan_kelas', ['siswa' => $siswa, 'kelas' => $kelas]);
         $pdf->setPaper('A4', 'portrait');
         $namadokumen = $kelas->nama_kelas . '-laporan-siswa-pkl.pdf';
-        return $pdf->stream($namadokumen);
+        return $pdf->download($namadokumen);
     }
 }

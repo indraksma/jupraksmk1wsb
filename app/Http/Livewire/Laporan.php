@@ -10,6 +10,7 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -23,6 +24,10 @@ class Laporan extends Component
 
     public function mount()
     {
+        if (Auth::user()->hasRole(['guru', 'pokja'])) {
+            $this->guru = Auth::user()->name;
+            $this->user_id = Auth::user()->id;
+        }
         $tahun_ajaran = Tahun_ajaran::where('aktif', 1)->first();
         $this->ta_id = $tahun_ajaran->id;
     }
@@ -39,7 +44,7 @@ class Laporan extends Component
 
     public function updatedJenisLaporan($type)
     {
-        $this->reset(['laporan_type', 'dudi', 'dudi_id', 'user_id', 'bulan', 'siswa', 'list_jurusan', 'list_kelas', 'jurusan_id', 'kelas_id']);
+        $this->reset(['laporan_type', 'dudi', 'dudi_id', 'bulan', 'siswa', 'list_jurusan', 'list_kelas', 'jurusan_id', 'kelas_id']);
         $this->showSiswa = false;
         $this->showPrintBtn = false;
         $this->laporan_type = $type;
@@ -48,7 +53,15 @@ class Laporan extends Component
             $this->kelas_id = '';
             $this->list_jurusan = Jurusan::all();
         } else {
-            $this->user_id = '';
+            if (Auth::user()->hasRole(['guru', 'pokja'])) {
+                $this->guru = Auth::user()->name;
+                $this->user_id = Auth::user()->id;
+                $dudi_pkl = Siswa_pkl::where('user_id', $this->user_id)->groupBy('dudi_id')->pluck('dudi_id');
+                $dudi_list = Dudi::whereIn('id', $dudi_pkl)->get();
+                $this->dudi = $dudi_list;
+            } else {
+                $this->user_id = '';
+            }
             $this->dudi_id = '';
         }
     }

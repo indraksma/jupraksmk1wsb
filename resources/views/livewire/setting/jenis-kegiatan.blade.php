@@ -16,6 +16,7 @@
                         <tr>
                             <th>Kode Kegiatan</th>
                             <th>Nama Kegiatan</th>
+                            <th>Kunci Entri Nilai</th>
                             <th style="width: 150px">Aksi</th>
                         </tr>
                     </thead>
@@ -25,8 +26,20 @@
                                 <td>{{ $item->kode_kegiatan }}</td>
                                 <td>{{ $item->nama_kegiatan }}</td>
                                 <td>
+                                    @if ($item->kunci == 1)
+                                        <span class="badge badge-success">Aktif</span>
+                                    @else
+                                        <span class="badge badge-secondary">Tidak Aktif</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->kunci != 1)
+                                        <button class="btn btn-sm btn-success"
+                                            wire:click="activate({{ $item->id }})"><i
+                                                class="fas fa-key"></i></button>
+                                    @endif
                                     <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-info"><i
-                                            class="fas fa-edit"></i></button>&nbsp;
+                                            class="fas fa-edit"></i></button>
                                     <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger"
                                         onclick="confirm('Are you sure to delete?') || event.stopImmediatePropagation()"><i
                                             class="fas fa-trash"></i></button>

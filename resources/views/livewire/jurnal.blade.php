@@ -54,11 +54,9 @@
                                                     class="btn btn-sm btn-primary"><i class="fa fa-eye"></i>&nbsp;
                                                     Lihat</button></a></td>
                                         <td>
-                                            <button wire:click="$emit('edit', {{ $item->id }})"
-                                                class="btn btn-sm btn-info"><i class="fas fa-edit"></i>
-                                                Edit</button>&nbsp;
-                                            <button class="btn btn-sm btn-success"><i class="fas fa-file-alt"></i>
-                                                Presensi</button>
+                                            <a href="{{ route('jurnal.edit', ['idjurnal' => $item->id]) }}"><button
+                                                    class="btn btn-sm btn-info"><i class="fas fa-edit"></i>
+                                                    Edit</button>
                                         </td>
                                     </tr>
                                 @endforeach

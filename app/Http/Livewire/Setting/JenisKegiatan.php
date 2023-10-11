@@ -65,4 +65,12 @@ class JenisKegiatan extends Component
 
         $this->alert('warning', 'Data berhasil dihapus!');
     }
+
+    public function activate($id)
+    {
+        Jenis_kegiatan::where('kunci', 1)->update(['kunci' => 0]);
+
+        Jenis_kegiatan::where('id', $id)->update(['kunci' => 1]);
+        $this->alert('success', 'Setting kunci entri nilai berhasil!');
+    }
 }

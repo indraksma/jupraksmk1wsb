@@ -73,7 +73,7 @@
                                     </select>
                                 @else
                                     <input type="hidden" wire:model="user_id">
-                                    <input type="text" wire:model="guru" readonly>
+                                    <input type="text" class="form-control" wire:model="guru" readonly>
                                 @endif
                             </div>
                         </div>

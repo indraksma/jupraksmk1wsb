@@ -17,6 +17,7 @@ class CreateJenisKegiatansTable extends Migration
             $table->id();
             $table->string('kode_kegiatan');
             $table->string('nama_kegiatan');
+            $table->integer('kunci')->nullable();
             $table->timestamps();
         });
     }

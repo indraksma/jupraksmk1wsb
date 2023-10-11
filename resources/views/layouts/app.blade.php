@@ -114,7 +114,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('nilai') }}"
+                                class="{{ request()->routeIs('nilai') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Entri Nilai</p>
                             </a>

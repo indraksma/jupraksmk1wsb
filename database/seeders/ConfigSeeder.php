@@ -65,22 +65,27 @@ class ConfigSeeder extends Seeder
         Jenis_kegiatan::create([
             'kode_kegiatan' => 'PBR',
             'nama_kegiatan' => 'Pemberangkatan',
+            'kunci' => 0,
         ]);
         Jenis_kegiatan::create([
             'kode_kegiatan' => 'MET',
             'nama_kegiatan' => 'Mentoring',
+            'kunci' => 0,
         ]);
         Jenis_kegiatan::create([
             'kode_kegiatan' => 'MOT',
             'nama_kegiatan' => 'Monitoring',
+            'kunci' => 0,
         ]);
         Jenis_kegiatan::create([
             'kode_kegiatan' => 'PNR',
             'nama_kegiatan' => 'Penarikan',
+            'kunci' => 0,
         ]);
         Jenis_kegiatan::create([
             'kode_kegiatan' => 'UJP',
             'nama_kegiatan' => 'Ujian atau Penilaian',
+            'kunci' => 1,
         ]);
     }
 }

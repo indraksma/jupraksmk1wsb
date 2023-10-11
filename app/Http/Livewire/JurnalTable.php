@@ -23,92 +23,38 @@ class JurnalTable extends DataTableComponent
 
     public function columns(): array
     {
-        if (Auth::user()->hasRole(['admin', 'waka'])) {
-            return [
-                Column::make("Tanggal", "tanggal")
-                    ->format(function ($row) {
-                        $date = date_create($row);
-                        return date_format($date, 'j F Y');
-                    })
-                    ->searchable()
-                    ->sortable(),
-                Column::make("Nama Guru", "user.name")
-                    ->searchable()
-                    ->sortable(),
-                Column::make("DUDI", "dudi.nama_dudi")
-                    ->searchable()
-                    ->sortable(),
-                Column::make("Jenis Kegiatan", "jenis_kegiatan.nama_kegiatan")
-                    ->searchable()
-                    ->sortable(),
-                LinkColumn::make('Dokumentasi')
-                    ->title(fn ($row) => 'Lihat')
-                    ->location(fn ($row) => $row->link_dokumentasi)
-                    ->attributes(fn ($row) => [
-                        'class' => 'btn btn-sm btn-info',
-                        'target' => '_blank',
-                    ]),
-                Column::make('Action')
-                    ->label(
-                        function ($row, Column $column) {
-                            $edit = '<a class="btn btn-sm btn-warning" href="' . route('jurnal.edit', ['idjurnal' => $row->id]) . '">Edit</a>';
-                            $delete = '<a class="btn btn-sm btn-danger text-white" wire:click="$emit(' . "'deleteId', " . $row->id . ')" data-toggle="modal" data-target="#deleteModal">Delete</a>';
-                            return $edit . '&nbsp;' . $delete;
-                        }
-                    )->html(),
-                // ButtonGroupColumn::make('Actions')
-                //     ->attributes(function ($row) {
-                //         return [
-                //             'class' => 'space-x-2',
-                //         ];
-                //     })
-                //     ->buttons([
-                //         LinkColumn::make('Action')
-                //             ->title(fn ($row) => 'Edit')
-                //             ->location(fn ($row) => route('jurnal.edit', ['idjurnal' => $row->id]))
-                //             ->attributes(fn ($row) => [
-                //                 'class' => 'btn btn-sm btn-warning',
-                //             ]),
-                //         LinkColumn::make('Action')
-                //             ->title(fn ($row) => 'Delete')
-                //             ->location(fn ($row) => route('jurnal.edit', ['idjurnal' => $row->id]))
-                //             ->attributes(fn ($row) => [
-                //                 'class' => 'btn btn-sm btn-danger',
-                //             ]),
-                //     ]),
-            ];
-        } else {
-            return [
-                Column::make("Tanggal", "tanggal")
-                    ->format(function ($row) {
-                        $date = date_create($row);
-                        return date_format($date, 'j F Y');
-                    })
-                    ->searchable()
-                    ->sortable(),
-                Column::make("Nama Guru", "user.name")
-                    ->searchable()
-                    ->sortable(),
-                Column::make("DUDI", "dudi.nama_dudi")
-                    ->searchable()
-                    ->sortable(),
-                Column::make("Jenis Kegiatan", "jenis_kegiatan.nama_kegiatan")
-                    ->searchable()
-                    ->sortable(),
-                LinkColumn::make('Dokumentasi')
-                    ->title(fn ($row) => 'Lihat')
-                    ->location(fn ($row) => $row->link_dokumentasi)
-                    ->attributes(fn ($row) => [
-                        'class' => 'btn btn-sm btn-info',
-                        'target' => '_blank',
-                    ]),
-                LinkColumn::make('Action')
-                    ->title(fn ($row) => 'Edit')
-                    ->location(fn ($row) => route('jurnal.edit', ['idjurnal' => $row->id]))
-                    ->attributes(fn ($row) => [
-                        'class' => 'btn btn-sm btn-warning',
-                    ]),
-            ];
-        }
+        return [
+            Column::make("Tanggal", "tanggal")
+                ->format(function ($row) {
+                    $date = date_create($row);
+                    return date_format($date, 'j F Y');
+                })
+                ->searchable()
+                ->sortable(),
+            Column::make("Nama Guru", "user.name")
+                ->searchable()
+                ->sortable(),
+            Column::make("DUDI", "dudi.nama_dudi")
+                ->searchable()
+                ->sortable(),
+            Column::make("Jenis Kegiatan", "jenis_kegiatan.nama_kegiatan")
+                ->searchable()
+                ->sortable(),
+            LinkColumn::make('Dokumentasi')
+                ->title(fn ($row) => 'Lihat')
+                ->location(fn ($row) => $row->link_dokumentasi)
+                ->attributes(fn ($row) => [
+                    'class' => 'btn btn-sm btn-info',
+                    'target' => '_blank',
+                ]),
+            Column::make('Action')
+                ->label(
+                    function ($row, Column $column) {
+                        $edit = '<a class="btn btn-sm btn-warning" href="' . route('jurnal.edit', ['idjurnal' => $row->id]) . '">Edit</a>';
+                        $delete = '<a class="btn btn-sm btn-danger text-white" wire:click="$emit(' . "'deleteId', " . $row->id . ')" data-toggle="modal" data-target="#deleteModal">Delete</a>';
+                        return $edit . '&nbsp;' . $delete;
+                    }
+                )->html(),
+        ];
     }
 }
