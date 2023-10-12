@@ -25,7 +25,7 @@
                     <form method="POST" wire:submit.prevent="store()">
                         <div class="card-body">
                             <div class="input-group mb-3">
-                                <input wire:model="nama_dudi" id="nama_dudi" type="text"
+                                <input wire:model.lazy="nama_dudi" id="nama_dudi" type="text"
                                     class="form-control @error('nama_dudi') is-invalid @enderror"
                                     placeholder="Nama DUDI" required="required">
                             </div>
@@ -50,7 +50,7 @@
                                 </div>
                             @enderror
                             <div class="input-group mb-3">
-                                <input wire:model="kabkota" id="kabkota" type="text"
+                                <input wire:model.lazy="kabkota" id="kabkota" type="text"
                                     class="form-control @error('kabkota') is-invalid @enderror" placeholder="Kab/Kota"
                                     required="required">
                             </div>
@@ -60,8 +60,8 @@
                                 </div>
                             @enderror
                             <div class="input-group mb-3">
-                                <textarea wire:model="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="3"
-                                    placeholder="Alamat"></textarea>
+                                <textarea wire:model.lazy="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror"
+                                    rows="3" placeholder="Alamat"></textarea>
                             </div>
                             @error('alamat')
                                 <div class="alert alert-danger">
