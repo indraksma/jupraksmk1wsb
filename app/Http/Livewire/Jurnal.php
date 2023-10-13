@@ -31,7 +31,7 @@ class Jurnal extends Component
         } else {
             $jurnal = ModelsJurnal::join('dudis', 'jurnals.dudi_id', '=', 'dudis.id')
                 ->join('jenis_kegiatans', 'jurnals.jenis_kegiatan_id', '=', 'jenis_kegiatans.id')
-                ->where('tahun_ajaran_id', $ta_id)->where('user_id', $user_id)->where(function ($sub_query) {
+                ->where('jurnals.tahun_ajaran_id', $ta_id)->where('jurnals.user_id', $user_id)->where(function ($sub_query) {
                     $query = '%' . $this->searchTerm . '%';
                     $sub_query->where('jurnals.tanggal', 'like', $query)
                         ->orWhere('dudis.nama_dudi', 'like', $query)

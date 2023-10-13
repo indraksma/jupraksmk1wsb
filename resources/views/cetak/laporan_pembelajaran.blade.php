@@ -110,7 +110,7 @@
             NIP. {{ $jurnal->tahun_ajaran->user->nip }}
         </td>
         <td>
-            Bawang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
+            Banjarnegara, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
             <br>
             Guru Pembimbing
             <br>
