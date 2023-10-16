@@ -53,13 +53,13 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="namaSiswa">Nama</label>
-                            <input type="text" wire:model="nama"
+                            <input type="text" wire:model.lazy="nama"
                                 class="form-control @error('nama') is-invalid @enderror" id="namaSiswa"
                                 placeholder="Nama Lengkap">
                         </div>
                         <div class="form-group">
                             <label for="namaSiswa">NIS</label>
-                            <input type="text" wire:model="nis"
+                            <input type="text" wire:model.lazy="nis"
                                 class="form-control @error('nis') is-invalid @enderror" id="nisSiswa"
                                 placeholder="Nomor Induk Siswa">
                         </div>

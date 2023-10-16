@@ -46,16 +46,15 @@
                                 </tr>
                             @else
                                 @foreach ($jurnal as $item)
-                                {{dd($item)}}
                                     <tr>
                                         <td>{{ date_format(date_create($item->tanggal), 'j F Y') }}</td>
-                                        <td>{{ $item->dudi->nama_dudi }}</td>
-                                        <td>{{ $item->jenis_kegiatan->nama_kegiatan }}</td>
+                                        <td>{{ $item->nama_dudi }}</td>
+                                        <td>{{ $item->nama_kegiatan }}</td>
                                         <td><a href="{{ $item->link_dokumentasi }}" target="_blank"><button
                                                     class="btn btn-sm btn-primary"><i class="fa fa-eye"></i>&nbsp;
                                                     Lihat</button></a></td>
                                         <td>
-                                            <a href="{{ route('jurnal.edit', ['idjurnal' => $item]) }}"><button
+                                            <a href="{{ route('jurnal.edit', ['idjurnal' => $item->id]) }}"><button
                                                     class="btn btn-sm btn-info"><i class="fas fa-edit"></i>
                                                     Edit</button>
                                         </td>

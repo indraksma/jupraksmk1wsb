@@ -16,7 +16,7 @@ class Jurnal extends Component
     use WithPagination, LivewireAlert;
 
     protected $paginationTheme = 'bootstrap';
-    public $searchTerm;
+    public $searchTerm = '';
     protected $listeners = ['deleteId'];
     public $deleteid;
 
@@ -29,7 +29,8 @@ class Jurnal extends Component
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('waka')) {
             $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->orderBy('tanggal', 'DESC')->get();
         } else {
-            $jurnal = ModelsJurnal::join('dudis', 'jurnals.dudi_id', '=', 'dudis.id')
+            // $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->where('user_id', $user_id)->orderBy('tanggal', 'DESC')->paginate(10);
+            $jurnal = ModelsJurnal::select('jurnals.id', 'jurnals.tanggal', 'dudis.nama_dudi', 'jenis_kegiatans.nama_kegiatan', 'jurnals.link_dokumentasi')->join('dudis', 'jurnals.dudi_id', '=', 'dudis.id')
                 ->join('jenis_kegiatans', 'jurnals.jenis_kegiatan_id', '=', 'jenis_kegiatans.id')
                 ->where('jurnals.tahun_ajaran_id', $ta_id)->where('jurnals.user_id', $user_id)->where(function ($sub_query) {
                     $query = '%' . $this->searchTerm . '%';

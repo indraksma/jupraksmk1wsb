@@ -90,6 +90,7 @@
                                                 <option value="">-- Presensi --</option>
                                                 <option value="H">Hadir</option>
                                                 <option value="I">Izin</option>
+                                                <option value="S">Sakit</option>
                                                 <option value="A">Alpha</option>
                                             </select>
                                         </td>

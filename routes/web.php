@@ -25,7 +25,6 @@ Route::get('/', function () {
 
 Route::get('home', App\Http\Livewire\Jurnal::class)->name('home')->middleware('auth');
 
-// Example
 Route::middleware(['auth', 'role:admin|pokja|guru|waka'])->group(function () {
     Route::get('siswa-pkl', App\Http\Livewire\Siswapkl::class)->name('siswa-pkl');
     Route::get('siswa-pkl/tambah', App\Http\Livewire\Addsiswapkl::class)->name('siswa-pkl.tambah');
