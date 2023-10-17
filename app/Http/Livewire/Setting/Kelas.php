@@ -13,6 +13,8 @@ class Kelas extends Component
 {
     use WithPagination, LivewireAlert;
 
+    protected $paginationTheme = 'bootstrap';
+
     public $kelas_id, $nama_kelas, $jurusan_id, $tahun_ajaran_id;
 
     public function render()

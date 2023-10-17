@@ -55,7 +55,7 @@
             <form method="POST" wire:submit.prevent="store()">
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input wire:model="nama_kelas" id="nama_kelas" type="text" name="nama_kelas"
+                        <input wire:model.lazy="nama_kelas" id="nama_kelas" type="text" name="nama_kelas"
                             value="{{ old('nama_kelas') }}"
                             class="form-control @error('nama_kelas') is-invalid @enderror" placeholder="Nama Kelas"
                             required="required">
