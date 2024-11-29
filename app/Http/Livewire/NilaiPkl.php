@@ -47,6 +47,15 @@ class NilaiPkl extends Component
         ])->extends('layouts.app');
     }
 
+    public function updatedUserId()
+    {
+        $this->reset(['dudi', 'data_siswa', 'jurusan']);
+        $this->showSiswa = false;
+        $this->showWarning = false;
+        $this->dudi = '';
+        $this->jurusan = '';
+    }
+
     public function updatedJurusan($id)
     {
         $this->reset(['dudi', 'data_siswa']);
@@ -63,13 +72,14 @@ class NilaiPkl extends Component
         $this->showWarning = false;
         $this->reset('data_siswa');
         $kunci = Jenis_kegiatan::where('kunci', 1)->first();
-        $cekjurnal = Jurnal::where('dudi_id', $id)->where('jenis_kegiatan_id', $kunci->id)->count();
+        $cekjurnal = Jurnal::where('dudi_id', $id)->where('jenis_kegiatan_id', $kunci->id)->where('user_id', $this->user_id)->count();
         if ($cekjurnal == 0) {
             $this->showWarning = true;
         } else {
+            $user_id = $this->user_id;
             $ceknilai = ModelsNilaiPkl::where('dudi_id', $id)->get();
             if ($ceknilai->isEmpty()) {
-                $this->data_siswa = Siswa_pkl::where('dudi_id', $id)->get();
+                $this->data_siswa = Siswa_pkl::where('dudi_id', $id)->where('user_id', $user_id)->get();
             } else {
                 $this->data_siswa = $ceknilai;
                 foreach ($ceknilai as $key => $data) {

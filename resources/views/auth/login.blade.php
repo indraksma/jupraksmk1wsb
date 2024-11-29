@@ -2,10 +2,12 @@
 @section('title', 'Login')
 @section('content')
 <div class="login-box">
-    <div class="login-logo">
-        <a href="/"><strong>@yield('title')</strong></a>
-    </div>
-    <div class="card">
+    <div class="card card-outline card-primary">
+		<div class="card-header text-center">
+			<img src="{{asset('logo.png')}}" style="max-width:80px;" class="img-fluid mb-2" />
+			<br/>
+			<a href="/" class="h4"><strong>Sistem Informasi Jurnal PKL</strong></a>
+		</div>
         <div class="card-body login-card-body">
             <form action="{{ route('login') }}" method="POST">
                 <div class="input-group mb-3">

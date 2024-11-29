@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistem Informasi Jurnal Pembelajaran PKL SMKN 1 Bawang">
+    <meta name="description" content="Sistem Informasi Jurnal Pembelajaran PKL SMKN 1 Wonosobo">
     <meta name="author" content="IndraKus @indrakus_">
     <link rel="icon" type="image" href="{{ asset('favicon.png') }}">
     <title>Laporan Siswa PKL - SIJUPRAK</title>
@@ -39,7 +39,7 @@
 </head>
 
 <body>
-    <h3 class="ctr">DAFTAR SISWA<br>PRAKTIK KERJA LAPANGAN<br>SMK NEGERI 1 BAWANG</h3>
+    <h3 class="ctr">DAFTAR SISWA<br>PRAKTIK KERJA LAPANGAN<br>SMK NEGERI 1 WONOSOBO</h3>
     <h4 class="ctr">KELAS {{ $kelas->nama_kelas }} TAHUN PELAJARAN
         {{ $kelas->tahun_ajaran->tahun_ajaran }}</h4>
     <table border="1" class="coba ctr" width="100%" cellspacing="0" style="margin-bottom: 50px;">

@@ -26,7 +26,7 @@ class ImportUser implements ToModel
             'nip' => $row[1],
             'identity' => $row[2],
             'email' => $row[3],
-            'password' => Hash::make('Skansanesi4'),
+            'password' => Hash::make('Smkn1Wonosobo'),
         ]);
     }
 }

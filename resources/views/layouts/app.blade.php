@@ -54,36 +54,21 @@
                 <span class="brand-text">{{ config('app.name', 'Jurnal PKL SMKN 1 Bawang') }}</span>
             </a>
             <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex" bis_skin_checked="1">
+                    <div class="image" bis_skin_checked="1">
+                        <img src="{{ asset('default-user.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info" bis_skin_checked="1">
+                        @php
+                            $namauser = explode(' ', Auth::user()->name);
+                        @endphp
+                        <a class="d-block">{{ $namauser[0] }}{{ isset($namauser[1]) ? ' ' . $namauser[1] : '' }}</a>
+                    </div>
+                </div>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Main Menu -->
-                        {{-- <li
-                            class="{{ request()->routeIs(['home', 'example.crud']) ? 'nav-item has-treeview menu-open' : 'nav-item' }}">
-                            <a href="#"
-                                class="{{ request()->routeIs(['home', 'example.crud']) ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Main Menu <i class="right fas fa-angle-left"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('home') }}"
-                                        class="{{ request()->routeIs('home') ? 'nav-link active' : 'nav-link' }}">
-                                        <i
-                                            class="{{ request()->routeIs('home') ? 'fas fa-circle nav-icon' : 'far fa-circle nav-icon' }}"></i>
-                                        <p>Home</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('example.crud') }}"
-                                        class="{{ request()->routeIs('example.crud') ? 'nav-link active' : 'nav-link' }}">
-                                        <i
-                                            class="{{ request()->routeIs('example.crud') ? 'fas fa-circle nav-icon' : 'far fa-circle nav-icon' }}"></i>
-                                        <p>CRUD Example</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('home') }}"
                                 class="{{ request()->routeIs(['home', 'jurnal.tambah', 'jurnal']) ? 'nav-link active' : 'nav-link' }}">
@@ -174,6 +159,13 @@
                                 </ul>
                             </li>
                         @endif
+                        <li class="nav-item">
+                            <a href="{{ route('resetpass') }}"
+                                class="{{ request()->routeIs('resetpass') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>Reset Password</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -202,10 +194,10 @@
             </form>
         </aside>
         <footer class="main-footer">
-            <strong>Copyright &copy; 2023. Jurnal PKL SMKN 1 Bawang.</strong>
+            <strong>Copyright &copy; 2024. Jurnal PKL SMKN 1 Wonosobo.</strong>
             <div class="float-right d-none d-sm-inline">
                 <small>Built with <i class="fas fa-heart text-pink"></i> <a
-                        href="https://www.instagram.com/indrakus_">Indra Kusuma</a></small>
+                        href="https://www.instagram.com/indrakus_">IK</a></small>
             </div>
         </footer>
     </div>

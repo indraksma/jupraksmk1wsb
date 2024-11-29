@@ -7,12 +7,22 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use App\Models\Jurnal;
+use App\Models\Tahun_ajaran;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class JurnalTable extends DataTableComponent
 {
     protected $listeners = ['refreshJurnalTable' => '$refresh'];
     protected $model = Jurnal::class;
+
+
+    public function builder(): Builder
+    {
+        $ta_aktif = Tahun_ajaran::where('aktif', 1)->first()->id;
+        return Jurnal::query()
+            ->where('tahun_ajaran_id', $ta_aktif); // Select some things
+    }
 
     public function configure(): void
     {
@@ -41,9 +51,9 @@ class JurnalTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
             LinkColumn::make('Dokumentasi')
-                ->title(fn ($row) => 'Lihat')
-                ->location(fn ($row) => $row->link_dokumentasi)
-                ->attributes(fn ($row) => [
+                ->title(fn($row) => 'Lihat')
+                ->location(fn($row) => $row->link_dokumentasi)
+                ->attributes(fn($row) => [
                     'class' => 'btn btn-sm btn-info',
                     'target' => '_blank',
                 ]),
