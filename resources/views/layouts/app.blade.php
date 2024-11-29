@@ -54,15 +54,16 @@
                 <span class="brand-text">{{ config('app.name', 'Jurnal PKL SMKN 1 Bawang') }}</span>
             </a>
             <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex" bis_skin_checked="1">
-                    <div class="image" bis_skin_checked="1">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
                         <img src="{{ asset('default-user.jpg') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
-                    <div class="info" bis_skin_checked="1">
+                    <div class="info">
                         @php
                             $namauser = explode(' ', Auth::user()->name);
                         @endphp
-                        <a class="d-block">{{ $namauser[0] }}{{ isset($namauser[1]) ? ' ' . $namauser[1] : '' }}</a>
+                        <p class="mb-0 text-white">
+                            {{ $namauser[0] }}{{ isset($namauser[1]) ? ' ' . $namauser[1] : '' }}</p>
                     </div>
                 </div>
                 <nav class="mt-2">
