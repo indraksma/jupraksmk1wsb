@@ -25,60 +25,60 @@
                                 class="btn btn-sm btn-info">Susulan</button></a></div>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-            @if (Auth::user()->hasRole(['admin', 'waka']))
-                <livewire:jurnal-table />
-            @else
-                <div class="row">
-                    <div class="col-md-9">
-                        <h5>{{ Auth::user()->name }}</h5>
+            <div class="card-body">
+                @if (Auth::user()->hasRole(['admin', 'waka']))
+                    <livewire:jurnal-table />
+                @else
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5>{{ Auth::user()->name }}</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Search" wire:model="searchTerm" />
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Search" wire:model="searchTerm" />
-                    </div>
-                </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>DUDI</th>
-                            <th>Jenis Kegiatan</th>
-                            <th>Dokumentasi</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (!$jurnal)
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td class="text-center" colspan="5">Belum ada data</td>
+                                <th>Tanggal</th>
+                                <th>DUDI</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Dokumentasi</th>
+                                <th>Aksi</th>
                             </tr>
-                        @else
-                            @foreach ($jurnal as $item)
+                        </thead>
+                        <tbody>
+                            @if (!$jurnal)
                                 <tr>
-                                    <td>{{ date_format(date_create($item->tanggal), 'j F Y') }}</td>
-                                    <td>{{ $item->nama_dudi }}</td>
-                                    <td>{{ $item->nama_kegiatan }}</td>
-                                    <td><a href="{{ $item->link_dokumentasi }}" target="_blank"><button
-                                                class="btn btn-sm btn-primary"><i class="fa fa-eye"></i>&nbsp;
-                                                Lihat</button></a></td>
-                                    <td>
-                                        <a href="{{ route('jurnal.edit', ['idjurnal' => $item->id]) }}"><button
-                                                class="btn btn-sm btn-info"><i class="fas fa-edit"></i>
-                                                Edit</button>
-                                    </td>
+                                    <td class="text-center" colspan="5">Belum ada data</td>
                                 </tr>
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                @if ($jurnal)
-                    {{ $jurnal->links() }}
+                            @else
+                                @foreach ($jurnal as $item)
+                                    <tr>
+                                        <td>{{ date_format(date_create($item->tanggal), 'j F Y') }}</td>
+                                        <td>{{ $item->nama_dudi }}</td>
+                                        <td>{{ $item->nama_kegiatan }}</td>
+                                        <td><a href="{{ $item->link_dokumentasi }}" target="_blank"><button
+                                                    class="btn btn-sm btn-primary"><i class="fa fa-eye"></i>&nbsp;
+                                                    Lihat</button></a></td>
+                                        <td>
+                                            <a href="{{ route('jurnal.edit', ['idjurnal' => $item->id]) }}"><button
+                                                    class="btn btn-sm btn-info"><i class="fas fa-edit"></i>
+                                                    Edit</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                    @if ($jurnal)
+                        {{ $jurnal->links() }}
+                    @endif
                 @endif
-            @endif
+            </div>
         </div>
+    @endif
 </div>
-@endif
 <!-- Modal -->
 <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
     aria-labelledby="deleteModalLabel" aria-hidden="true">
