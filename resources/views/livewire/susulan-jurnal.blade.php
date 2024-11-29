@@ -1,4 +1,4 @@
-@section('title', 'Tambah Jurnal PKL')
+@section('title', 'Susulan Jurnal PKL')
 <div>
     <div class="card card-primary">
         <div class="card-body">
@@ -8,11 +8,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Tanggal</label>
                             <div class="col-md-4">
-                                @if (Auth::user()->hasRole('admin'))
-                                    <input class="form-control" wire:model="tanggal" type="date" />
-                                @else
-                                    <input class="form-control" wire:model="tanggal" type="date" readonly />
-                                @endif
+                                <input class="form-control" wire:model.lazy="tanggal" type="date"
+                                    max="{{ date('Y-m-d') }}" />
                             </div>
                             <div class="col-md-6 text-right">
                                 <a href="{{ route('jurnal') }}" class="btn btn-sm btn-success">Kembali</a>
@@ -23,18 +20,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Nama Guru</label>
                             <div class="col-md-10">
-                                @if (Auth::user()->hasRole(['admin', 'waka']))
-                                    <select wire:model="user" id="user_id"
-                                        class="form-control @error('user') is-invalid @enderror">
-                                        <option value="">-- Pilih Guru --</option>
-                                        @foreach ($users as $u)
-                                            <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                        @endforeach
-                                    </select>
-                                @else
-                                    <input wire:model="user" class="form-control" type="hidden" />
-                                    <input type="text" class="form-control" readonly value="{{ $users->name }}" />
-                                @endif
+                                <input wire:model="user" class="form-control" type="hidden" />
+                                <input type="text" class="form-control" readonly value="{{ $users->name }}" />
                             </div>
                         </div>
                     </div>
@@ -122,7 +109,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="text-center">Tidak ada data yang dapat ditampilkan
+                                            <td colspan="6" class="text-center">Tidak ada data yang dapat ditampilkan
                                             </td>
                                         </tr>
                                     @endforelse

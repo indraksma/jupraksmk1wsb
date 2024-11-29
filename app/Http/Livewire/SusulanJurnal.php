@@ -14,12 +14,12 @@ use App\Models\Tahun_ajaran;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class AddJurnal extends Component
+class SusulanJurnal extends Component
 {
     use LivewireAlert;
 
     public $showSiswa = false;
-    public $dudi, $user, $jeniskeg, $siswa, $dudi_list, $link_dokumentasi, $tanggal;
+    public $dudi, $user, $jeniskeg, $siswa, $dudi_list, $tanggal, $jumlahsiswapkl;
     public $siswaid = [];
     public $kehadiran = [];
     public $keterangan = [];
@@ -30,7 +30,6 @@ class AddJurnal extends Component
     protected $rules = [
         'dudi' => 'required',
         'jeniskeg' => 'required',
-        'link_dokumentasi' => 'required',
         'user' => 'required',
         'tanggal' => 'required',
     ];
@@ -45,17 +44,12 @@ class AddJurnal extends Component
     {
         $ta = Tahun_ajaran::where('aktif', 1)->first();
         $jeniskeg = Jenis_kegiatan::all();
-        if (Auth::user()->hasRole(['admin', 'waka'])) {
-            $dudi_list = Dudi::all();
-            $user = User::all();
-        } else {
-            $dudi_pkl = Siswa_pkl::where('user_id', Auth::user()->id)->groupBy('dudi_id')->pluck('dudi_id');
-            $dudi_list = Dudi::whereIn('id', $dudi_pkl)->get();
-            $this->dudi_list = $dudi_list;
-            $user = User::where('id', auth()->user()->id)->first();
-            $this->user = $user->id;
-        }
-        return view('livewire.add-jurnal', [
+        $dudi_pkl = Siswa_pkl::where('user_id', Auth::user()->id)->where('tahun_ajaran_id', $ta->id)->groupBy('dudi_id')->pluck('dudi_id');
+        $dudi_list = Dudi::whereIn('id', $dudi_pkl)->get();
+        $this->dudi_list = $dudi_list;
+        $user = User::where('id', auth()->user()->id)->first();
+        $this->user = $user->id;
+        return view('livewire.susulan-jurnal', [
             'ta' => $ta,
             'data_dudi' => $dudi_list,
             'users' => $user,
@@ -75,10 +69,12 @@ class AddJurnal extends Component
 
     public function updatedDudi()
     {
-        $this->reset('siswaid');
         $ta = Tahun_ajaran::where('aktif', 1)->first();
+        $this->reset('siswaid');
         $siswapkl = Siswa_pkl::where('user_id', $this->user)->where('dudi_id', $this->dudi)->where('tahun_ajaran_id', $ta->id)->get();
         if ($siswapkl) {
+            $this->reset('kehadiran');
+            $this->jumlahsiswapkl = Siswa_pkl::where('user_id', $this->user)->where('dudi_id', $this->dudi)->where('tahun_ajaran_id', $ta->id)->count();
             foreach ($siswapkl as $key => $s) {
                 $this->siswaid[$key] = $s->siswa->id;
             }
@@ -105,8 +101,20 @@ class AddJurnal extends Component
         }
         if ($this->cekform) {
             $this->showSiswa = true;
+            for ($i = 0; $i < $this->jumlahsiswapkl; $i++) {
+                $this->kehadiran[$i] = 'H';
+            }
         } else {
             $this->showSiswa = false;
+        }
+    }
+
+    public function updatedTanggal()
+    {
+        if ($this->tanggal > date('Y-m-d')) {
+            $this->alert('warning', 'Tanggal susulan tidak boleh melebihi hari ini!');
+            $this->reset('tanggal');
+            $this->tanggal = date('Y-m-d');
         }
     }
 

@@ -6,6 +6,7 @@ use App\Models\Jurnal as ModelsJurnal;
 use App\Models\JurnalDetail;
 use App\Models\Siswa_pkl;
 use App\Models\Tahun_ajaran;
+use App\Models\LinkDokumentasi;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -26,6 +27,7 @@ class Jurnal extends Component
         $ta = Tahun_ajaran::where('aktif', 1)->first();
         $user_id = Auth::user()->id;
         $cek_siswa = Siswa_pkl::where('user_id', $user_id)->where('tahun_ajaran_id', $ta_id)->count();
+        $cek_doc = LinkDokumentasi::where('user_id', $user_id)->where('tahun_ajaran_id', $ta_id)->count();
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('waka')) {
             $jurnal = ModelsJurnal::where('tahun_ajaran_id', $ta_id)->orderBy('tanggal', 'DESC')->get();
         } else {
@@ -41,6 +43,7 @@ class Jurnal extends Component
         }
         return view('livewire.jurnal', [
             'cek_siswa' => $cek_siswa,
+            'cek_doc' => $cek_doc,
             'ta' => $ta,
             'jurnal' => $jurnal,
         ])->extends('layouts.app');

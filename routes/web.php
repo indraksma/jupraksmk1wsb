@@ -31,12 +31,14 @@ Route::middleware(['auth', 'role:admin|pokja|guru|waka'])->group(function () {
     Route::get('dudi', App\Http\Livewire\Dudi::class)->name('dudi');
     Route::get('jurnal', App\Http\Livewire\Jurnal::class)->name('jurnal');
     Route::get('jurnal/tambah', App\Http\Livewire\AddJurnal::class)->name('jurnal.tambah');
+    Route::get('jurnal/susulan', App\Http\Livewire\SusulanJurnal::class)->name('jurnal.susulan');
     Route::get('jurnal/edit', App\Http\Livewire\EditJurnal::class)->name('jurnal.edit');
     Route::get('nilai', App\Http\Livewire\NilaiPkl::class)->name('nilai');
     Route::get('laporan', App\Http\Livewire\Laporan::class)->name('laporan');
     Route::get('laporan/pkl/{siswaid}/{taid}/{bulan}', [CetakController::class, 'cetak_laporan'])->name('cetak.laporan2');
     Route::get('laporan/siswa/{kelasid}', [CetakController::class, 'cetak_kelas'])->name('cetak.laporan1');
-	Route::get('reset-password', App\Http\Livewire\ResetPassword::class)->name('resetpass');
+    Route::get('reset-password', App\Http\Livewire\ResetPassword::class)->name('resetpass');
+    Route::get('doc', App\Http\Livewire\Setting\LinkDokumentasi::class)->name('doc');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
