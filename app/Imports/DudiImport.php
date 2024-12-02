@@ -15,7 +15,7 @@ class DudiImport implements ToModel
      */
     public function model(array $row)
     {
-        $id = Jurusan::where('kode_jurusan', 'LIKE', $row[1])->pluck('id');
+        $id = Jurusan::where('kode_jurusan', 'LIKE', $row[1])->first()->id;
         return new Dudi([
             'nama_dudi' => $row[0],
             'jurusan_id' => $id,
