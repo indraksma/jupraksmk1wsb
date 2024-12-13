@@ -30,7 +30,6 @@ class AddJurnal extends Component
     protected $rules = [
         'dudi' => 'required',
         'jeniskeg' => 'required',
-        'link_dokumentasi' => 'required',
         'user' => 'required',
         'tanggal' => 'required',
     ];
